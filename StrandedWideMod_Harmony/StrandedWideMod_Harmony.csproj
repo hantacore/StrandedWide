@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A0A3863A-E476-4ECC-AFB4-620279FBA8EE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>StrandedWideMod_Harmony</RootNamespace>
+    <AssemblyName>StrandedWideMod_Harmony</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>..\..\..\..\UnityModManager\0Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Stranded Deep 1.0.38.0.29\Stranded_Deep_Data\Managed\Assembly-CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Stranded Deep 1.0.38.0.29\Stranded_Deep_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+    </Reference>
+    <Reference Include="bolt">
+      <HintPath>..\..\..\Stranded Deep 1.0.38.0.29\Stranded_Deep_Data\Managed\bolt.dll</HintPath>
+    </Reference>
+    <Reference Include="bolt.user">
+      <HintPath>..\..\..\Stranded Deep 1.0.38.0.29\Stranded_Deep_Data\Managed\bolt.user.dll</HintPath>
+    </Reference>
+    <Reference Include="Rewired_Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Stranded Deep 1.0.38.0.29\Stranded_Deep_Data\Managed\Rewired_Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Sirenix.Serialization, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Stranded Deep 1.0.38.0.29\Stranded_Deep_Data\Managed\Sirenix.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="Sirenix.Serialization.Config, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Stranded Deep 1.0.38.0.29\Stranded_Deep_Data\Managed\Sirenix.Serialization.Config.dll</HintPath>
+    </Reference>
+    <Reference Include="Sirenix.Utilities, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Stranded Deep 1.0.38.0.29\Stranded_Deep_Data\Managed\Sirenix.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>..\..\..\Stranded Deep 1.0.38.0.29\Stranded_Deep_Data\Managed\Unity.TextMeshPro.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\Stranded Deep 1.0.38.0.29\Stranded_Deep_Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>..\..\..\Stranded Deep 1.0.38.0.29\Stranded_Deep_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule">
+      <HintPath>..\..\..\Stranded Deep 1.0.38.0.29\Stranded_Deep_Data\Managed\UnityEngine.ImageConversionModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>..\..\..\Stranded Deep 1.0.38.0.29\Stranded_Deep_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Stranded Deep 1.0.38.0.29\Stranded_Deep_Data\Managed\UnityEngine.PhysicsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TerrainModule">
+      <HintPath>..\..\..\Stranded Deep 1.0.38.0.29\Stranded_Deep_Data\Managed\UnityEngine.TerrainModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TextCoreFontEngineModule">
+      <HintPath>..\..\..\Stranded Deep 1.0.38.0.29\Stranded_Deep_Data\Managed\UnityEngine.TextCoreFontEngineModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TextCoreTextEngineModule">
+      <HintPath>..\..\..\Stranded Deep 1.0.38.0.29\Stranded_Deep_Data\Managed\UnityEngine.TextCoreTextEngineModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>..\..\..\Stranded Deep 1.0.38.0.29\Stranded_Deep_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>..\..\..\..\Stranded Deep 1.0.38.0.29\Stranded_Deep_Data\Managed\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Stranded Deep 1.0.38.0.29\Stranded_Deep_Data\Managed\UnityEngine.UIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityModManager">
+      <HintPath>..\..\..\..\UnityModManager\UnityModManager.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\VersionChecker.cs">
+      <Link>VersionChecker.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\WorldUtilities.cs">
+      <Link>WorldUtilities.cs</Link>
+    </Compile>
+    <Compile Include="Main.0.Config.cs" />
+    <Compile Include="Main.0_Additions.cs" />
+    <Compile Include="Main.0_SplashScreen.cs" />
+    <Compile Include="Main.1_StrandedWorld.cs" />
+    <Compile Include="Main.1_StrandedWorld_IslandsCount.cs" />
+    <Compile Include="Main.2_Zone.cs" />
+    <Compile Include="Main.3_Maps.cs" />
+    <Compile Include="Main.4_ZonePositionGenerator.cs" />
+    <Compile Include="Main.5_CartographyMenuPresenter_IslandsCount.cs" />
+    <Compile Include="Main.5_MapTools.cs" />
+    <Compile Include="Main.5_World.cs" />
+    <Compile Include="Main.0.cs" />
+    <Compile Include="Main.5_World_IslandsCount.cs" />
+    <Compile Include="Main.7_IslandDebugTexture.cs" />
+    <Compile Include="Main.8_ZoneLoader.cs" />
+    <Compile Include="Main.9_ZoneObjectGenerator.cs" />
+    <Compile Include="Main.A_PiscusFollower.cs" />
+    <Compile Include="Main.B_MapEditorSaveMenuPresenter.cs" />
+    <Compile Include="Main.C_WorldTools.cs" />
+    <Compile Include="Main.D_LE_ZoneTileGenerator.cs" />
+    <Compile Include="Main.E_LE_TerrainManager.cs" />
+    <Compile Include="Main.H_LE_LevelEditorMain.cs" />
+    <Compile Include="Main.I_LE_GUI3dObject.cs" />
+    <Compile Include="Main.M_PiscusManager.cs" />
+    <Compile Include="Main.N_LE_ObjectEditHandle.cs" />
+    <Compile Include="Main.Q_ConnectorCheck_CheckDistanceFromZone.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Main.P_LE_SaveLoad.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\Repository.json">
+      <Link>Repository.json</Link>
+    </None>
+    <None Include="Info.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="assets\Splash\stranded_wide_white_cutout.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>SET path="$(ProjectDir)..\..\..\..\Stranded Deep 1.0.38.0.29\Mods\"
+if not exist %25path%25 mkdir %25path%25
+SET path="$(ProjectDir)..\..\..\..\Stranded Deep 1.0.38.0.29\Mods\StrandedWideMod\"
+if not exist %25path%25 mkdir %25path%25
+copy /Y "$(TargetDir)Info.json" %25path%25\.
+copy /Y "$(TargetDir)$(ProjectName).dll" %25path%25\.
+rem copy /Y "$(TargetDir)StrandedDeepModsUtilities.dll" %25path%25\.</PostBuildEvent>
+  </PropertyGroup>
+</Project>
