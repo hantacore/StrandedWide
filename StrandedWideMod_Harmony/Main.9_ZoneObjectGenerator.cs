@@ -43,7 +43,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching ZoneObjectGenerator.GenerateGridData : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching ZoneObjectGenerator.GenerateGridData : " + e);
                 }
                 return true;
             }
@@ -71,7 +71,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching ZoneObjectGenerator.DebugSoilMap : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching ZoneObjectGenerator.DebugSoilMap : " + e);
                 }
                 return true;
             }

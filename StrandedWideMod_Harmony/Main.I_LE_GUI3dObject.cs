@@ -62,7 +62,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching LE_GUI3dObject.IsObjectPlaceable : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching LE_GUI3dObject.IsObjectPlaceable : " + e);
                 }
                 return true;
             }
@@ -171,7 +171,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching LE_GUI3dObject.UpdateNewObjectDragAndDrop : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching LE_GUI3dObject.UpdateNewObjectDragAndDrop : " + e);
                 }
                 return true;
             }
@@ -240,7 +240,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching LE_GUI3dObject_PlaceObject_Patch : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching LE_GUI3dObject_PlaceObject_Patch : " + e);
                 }
                 return true;
             }

@@ -52,7 +52,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception ex)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching World_ReplaceMapWithProceduralMap_Patch : " + ex);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching World_ReplaceMapWithProceduralMap_Patch : " + ex);
                 }
                 return false;
             }
@@ -76,7 +76,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception ex)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching World_ReplaceMap_Patch : " + ex);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching World_ReplaceMap_Patch : " + ex);
                 }
                 return false;
             }
@@ -107,7 +107,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception ex)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching World_CreateMissionTiles_Patch : " + ex);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching World_CreateMissionTiles_Patch : " + ex);
                 }
                 return false;
             }
@@ -128,24 +128,24 @@ namespace StrandedWideMod_Harmony
                     WriteConfig();
 
                     Main._zoneLoadDistance = IslandSize - 6;
-                    Debug.Log("Stranded Wide (Harmony edition) : CreateWorld _zoneLoadDistance = " + _zoneLoadDistance);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : CreateWorld _zoneLoadDistance = " + _zoneLoadDistance);
                     Main._zoneUnloadDistance = _zoneLoadDistance - 10;
-                    Debug.Log("Stranded Wide (Harmony edition) : CreateWorld _zoneUnloadDistance = " + _zoneUnloadDistance);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : CreateWorld _zoneUnloadDistance = " + _zoneUnloadDistance);
 
 #warning create world async ?
 
                     World.CreateWorldZonePoints(StrandedWorld.WORLD_SEED);
                     //World.MapList = new Map[Main.IslandsCount];
-                    Debug.Log("Stranded Wide (Harmony edition) : CreateWorld island count (without NML) : " + (Main.IslandsCount));
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : CreateWorld island count (without NML) : " + (Main.IslandsCount));
                     pi_mapList.SetValue(null, new Map[Main.IslandsCount]);
-                    Debug.Log("Stranded Wide (Harmony edition) : CreateWorld world bundle size : " + World.MapList.Length);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : CreateWorld world bundle size : " + World.MapList.Length);
                     if (legacy)
                     {
                         for (int i = 0; i < World.GenerationZonePositons.Length; i++)
                         {
                             int seed = i;
                             //Map map = World.CreateProceduralMap(i, seed);
-                            Debug.Log("Stranded Wide (Harmony edition) : creating procedural island (legacy loop) n°" + i + " " + DateTime.Now);
+                            CustomLogger.Log("Stranded Wide (Harmony edition) : creating procedural island (legacy loop) n°" + i + " " + DateTime.Now);
                             Map map = mi_World_CreateProceduralMap.Invoke(null, new object[] { i, seed }) as Map;
                             World.MapList[i] = map;
                         }
@@ -163,11 +163,11 @@ namespace StrandedWideMod_Harmony
                         PropertyInfo pi_Instance = typeof(Beam.AccountServices.SteamWorkshop).GetProperty("Instance", BindingFlags.Public | BindingFlags.Static);
                         if (pi_Instance == null)
                         {
-                            Debug.Log("Stranded Wide (Harmony edition) : Steam Workshop not found, skipping remote maps");
+                            CustomLogger.Log("Stranded Wide (Harmony edition) : Steam Workshop not found, skipping remote maps");
                         }
                         else
                         {
-                            Debug.Log("Stranded Wide (Harmony edition) : Steam Workshop found, loading remote maps");
+                            CustomLogger.Log("Stranded Wide (Harmony edition) : Steam Workshop found, loading remote maps");
                             //lr = DynamicSteamMapsLoad(lr);
                             MethodInfo mi_DynamicSteamMapsLoad = typeof(Main).GetMethod("DynamicSteamMapsLoad", BindingFlags.Public | BindingFlags.Static);
                             if (mi_DynamicSteamMapsLoad != null)
@@ -178,7 +178,7 @@ namespace StrandedWideMod_Harmony
                     }
                     catch (Exception ex)
                     {
-                        Debug.Log("Stranded Wide (Harmony edition) : Steam Workshop not found, skipping remote maps");
+                        CustomLogger.Log("Stranded Wide (Harmony edition) : Steam Workshop not found, skipping remote maps");
                     }
 
 #warning end randomizer
@@ -207,7 +207,7 @@ namespace StrandedWideMod_Harmony
                         }
                         else
                         {
-                            Debug.Log("Stranded Wide (Harmony edition) : world randomizer skipping map " + map.EditorData.Name + " by " + map.EditorData.Author);
+                            CustomLogger.Log("Stranded Wide (Harmony edition) : world randomizer skipping map " + map.EditorData.Name + " by " + map.EditorData.Author);
                         }
                     }
 #warning end randomizer
@@ -216,7 +216,7 @@ namespace StrandedWideMod_Harmony
                     {
                         float density = (Main.customIslandsRatio * Main.IslandsCount) / 100f;
 
-                        //Debug.Log("Stranded Wide (Harmony edition) : trying to start create world coroutine");
+                        //CustomLogger.Log("Stranded Wide (Harmony edition) : trying to start create world coroutine");
                         //DialogueBoxViewAdapter db = MainMenuPresenter.FindObjectOfType<DialogueBoxViewAdapter>();
 
 #warning world randomizer
@@ -236,7 +236,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception ex)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching World_CreateWorld_Patch : " + ex);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching World_CreateWorld_Patch : " + ex);
                 }
                 return false;
             }
@@ -286,14 +286,14 @@ namespace StrandedWideMod_Harmony
                 {
                     int seed2 = j;
                     //Map map3 = World.CreateProceduralMap(j, seed2);
-                    Debug.Log("Stranded Wide (Harmony edition) : creating procedural island (vanilla loop) n°" + j + " " + DateTime.Now);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : creating procedural island (vanilla loop) n°" + j + " " + DateTime.Now);
                     Map map3 = mi_World_CreateProceduralMap.Invoke(null, new object[] { j, seed2 }) as Map;
                     World.MapList[j] = map3;
                 }
                 else if (maps != null && customIslandIndex < maps.Count())
                 {
                     Map customMap = maps.ElementAt(customIslandIndex);
-                    Debug.Log("Stranded Wide (Harmony edition) : adding custom island (vanilla loop) n°" + j + " " + DateTime.Now);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : adding custom island (vanilla loop) n°" + j + " " + DateTime.Now);
                     // upscale island if necessary
 
                     World.MapList[j] = customMap;
@@ -362,7 +362,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception ex)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching World_SaveWorldMaps_Patch : " + ex);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching World_SaveWorldMaps_Patch : " + ex);
                 }
                 return false;
             }
@@ -386,12 +386,14 @@ namespace StrandedWideMod_Harmony
                         int islandCount = legacy ? 5 * 5 : Main.IslandsCount;
                         //World.MapList = new Map[islandCount + 1];
                         pi_mapList.SetValue(null, new Map[Main.IslandsCount]);
+
+                        CustomLogger.Log("Stranded Wide (Harmony edition) : LoadWorldMaps WORLD_FOLDER : " + FilePath.WORLD_FOLDER);
+
                         for (int i = 0; i < islandCount; i++)
                         {
-                            Debug.Log("Stranded Wide (Harmony edition) : LoadWorldMaps loading zone n°" + i + " " + DateTime.Now);
-
                             //string worldMapFolderName = World.GetWorldMapFolderName(i, legacy);
                             string worldMapFolderName = mi_World_GetWorldMapFolderName.Invoke(null, new object[] { i, legacy }) as string;
+                            CustomLogger.Log("Stranded Wide (Harmony edition) : LoadWorldMaps loading zone n°" + i + " " + DateTime.Now);
                             string text = PathTools.Combine(new string[]
                             {
                                 FilePath.WORLD_FOLDER,
@@ -453,7 +455,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception ex)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching World_LoadWorldMaps_Patch : " + ex);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching World_LoadWorldMaps_Patch : " + ex);
                 }
                 return false;
             }
@@ -472,7 +474,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception ex)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching WorldBundle_Clear_Patch : " + ex);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching WorldBundle_Clear_Patch : " + ex);
                 }
                 return false;
             }
@@ -530,7 +532,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception ex)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching WorldBundle_Save_Patch : " + ex);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching WorldBundle_Save_Patch : " + ex);
                 }
                 return false;
             }
@@ -592,7 +594,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception ex)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching WorldBundle_Load_Patch : " + ex);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching WorldBundle_Load_Patch : " + ex);
                 }
                 return false;
             }
@@ -702,7 +704,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching World_ValidateWorldFolders_Patch : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching World_ValidateWorldFolders_Patch : " + e);
                 }
                 return true;
             }

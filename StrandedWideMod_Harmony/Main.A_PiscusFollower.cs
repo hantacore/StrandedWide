@@ -49,52 +49,52 @@ namespace StrandedWideMod_Harmony
             {
                 try
                 {
-                    //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 1");
+                    //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 1");
                     if (LevelLoader.IsServerJoinInProgress)
                     {
                         return false;
                     }
-                    //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 2");
+                    //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 2");
                     object[] _playerGridGroup = fi_playerGridGroup.GetValue(__instance) as object[];
                     //for (int i = 0; i < this._playerGridGroup.Length; i++)
-                    //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 3");
+                    //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 3");
                     for (int i = 0; i < _playerGridGroup.Length; i++)
                     {
                         //PiscusFollower.PlayerGridGroup playerGridGroup = __instance._playerGridGroup[i];
                         object playerGridGroup = ((object[])fi_playerGridGroup.GetValue(__instance))[i];
-                        //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 4 " + (playerGridGroup != null ? "not null" : "null"));
+                        //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 4 " + (playerGridGroup != null ? "not null" : "null"));
                         IPlayer player = pi_player.GetValue(playerGridGroup) as IPlayer;
 
-                        //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 5");
+                        //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 5");
                         object[,] spawnGrids = fi_SpawnGrids.GetValue(playerGridGroup) as object[,];
                         Transform t22 = fi_Grid.GetValue(spawnGrids[2, 2]) as Transform;
 
-                        //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 6");
+                        //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 6");
                         //if (playerGridGroup.Player != null && playerGridGroup.SpawnGrids[2, 2] == null)
                         if (player != null && t22 == null)
                         {
                             return false;
                         }
                     }
-                    //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 7");
+                    //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 7");
                     //for (int j = 0; j < this._playerGridGroup.Length; j++)
                     for (int j = 0; j < _playerGridGroup.Length; j++)
                     {
-                        //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 8");
+                        //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 8");
                         //PiscusFollower.PlayerGridGroup playerGridGroup2 = __instance._playerGridGroup[j];
                         object playerGridGroup2 = ((object[])fi_playerGridGroup.GetValue(__instance))[j];
-                        //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 9");
+                        //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 9");
                         Player player = pi_player.GetValue(playerGridGroup2) as Player;
-                        //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 10");
+                        //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 10");
                         object[,] spawnGrids = fi_SpawnGrids.GetValue(playerGridGroup2) as object[,];
 
-                        //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 11");
+                        //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 11");
                         //if (playerGridGroup2.Player != null)
                         if (player != null)
                         {
                             Vector3 position = player.transform.position;//playerGridGroup2.Player.transform.position;
                             //PiscusFollower.SpawnGrid spawnGrid = null;
-                            //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 12");
+                            //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 12");
                             object spawnGrid = null;
                             int num = 0;
                             int num2 = 0;
@@ -102,15 +102,15 @@ namespace StrandedWideMod_Harmony
                             {
                                 for (int l = 0; l < 3; l++)
                                 {
-                                    //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 13");
+                                    //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 13");
                                     //Vector3 position2 = playerGridGroup2.SpawnGrids[k, l].Grid.position;
                                     Transform tkl = fi_Grid.GetValue(spawnGrids[k, l]) as Transform;
-                                    //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 14");
+                                    //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 14");
                                     Vector3 position2 = tkl.position;
-                                    //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 15");
+                                    //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 15");
                                     if (position.x >= position2.x - ZoneTerrainHalfSize && position.x <= position2.x + ZoneTerrainHalfSize && position.z >= position2.z - ZoneTerrainHalfSize && position.z <= position2.z + ZoneTerrainHalfSize)
                                     {
-                                        //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 16");
+                                        //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 16");
                                         //spawnGrid = playerGridGroup2.SpawnGrids[k, l];
                                         spawnGrid = spawnGrids[k, l];
                                         num = 1 - k;
@@ -119,40 +119,40 @@ namespace StrandedWideMod_Harmony
                                     }
                                 }
                             }
-                            //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 17");
+                            //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 17");
                             object sg11 = spawnGrids[1, 1];
                             //if (spawnGrid != playerGridGroup2.SpawnGrids[1, 1])
                             if (spawnGrid != sg11)
                             {
-                                //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 18");
+                                //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 18");
                                 //PiscusFollower.SpawnGrid[,] array = new PiscusFollower.SpawnGrid[3, 3];
                                 object[,] array = new object[3,3];
                                 for (int m = 0; m < 3; m++)
                                 {
                                     for (int n = 0; n < 3; n++)
                                     {
-                                        //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 19");
+                                        //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 19");
                                         int num3 = m + num;
                                         int num4 = n + num2;
                                         if (num3 < 0 || num3 > 2 || num4 < 0 || num4 > 2)
                                         {
                                             object sgmn = spawnGrids[m, n];
-                                            //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 20");
+                                            //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 20");
                                             PiscusManager piscusManager = fi_piscusManager.GetValue(sgmn) as PiscusManager;
                                             //if (playerGridGroup2.SpawnGrids[m, n].piscusManager)
-                                            //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 21");
+                                            //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 21");
                                             if (piscusManager != null)
                                             {
                                                 //UnityEngine.Object.Destroy(playerGridGroup2.SpawnGrids[m, n].piscusManager.gameObject);
                                                 UnityEngine.Object.Destroy(piscusManager.gameObject);
-                                                //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 22");
+                                                //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 22");
                                             }
                                             //playerGridGroup2.SpawnGrids[m, n].CanGenerate = true;
                                             fi_CanGenerate.SetValue(sgmn, true);
-                                            //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 23");
+                                            //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 23");
                                             //playerGridGroup2.SpawnGrids[m, n].Generated = false;
                                             fi_Generated.SetValue(sgmn, false);
-                                            //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 24");
+                                            //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 24");
                                         }
                                         if (num3 < 0)
                                         {
@@ -170,15 +170,15 @@ namespace StrandedWideMod_Harmony
                                         {
                                             num4 = 0;
                                         }
-                                        //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 25");
+                                        //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 25");
                                         array[num3, num4] = spawnGrids[m, n];//playerGridGroup2.SpawnGrids[m, n];
 
-                                        //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 26");
+                                        //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 26");
                                         //playerGridGroup2.SpawnGrids[m, n].Grid.gameObject.name = "Spawn_Grid_" + num3.ToString() + "_" + num4.ToString();
                                         Transform grid = fi_Grid.GetValue(spawnGrids[m, n]) as Transform;
-                                        //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 27");
+                                        //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 27");
                                         grid.gameObject.name = "Spawn_Grid_" + num3.ToString() + "_" + num4.ToString();
-                                        //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 28");
+                                        //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 28");
                                     }
                                 }
 
@@ -187,15 +187,15 @@ namespace StrandedWideMod_Harmony
                                 {
                                     for (int j2 = 0; j2 < 3; j2++)
                                     {
-                                        //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 29");
+                                        //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 29");
                                         spawnGrids[i2, j2] = array[i2,j2];
                                     }
                                 }
 
                                 //__instance.UpdateGridPositions();
-                                //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 30");
+                                //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 30");
                                 mi_UpdateGridPositions.Invoke(__instance, new object[] { });
-                                //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 31");
+                                //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.MoveGrid 31");
                             }
                         }
                     }
@@ -204,7 +204,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching PiscusFollower.MoveGrid : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching PiscusFollower.MoveGrid : " + e);
                 }
                 return true;
             }
@@ -219,24 +219,24 @@ namespace StrandedWideMod_Harmony
             {
                 try
                 {
-                    //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.UpdateGridPositions 1");
+                    //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.UpdateGridPositions 1");
                     object[] _playerGridGroup = fi_playerGridGroup.GetValue(__instance) as object[];
-                    //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.UpdateGridPositions 2");
+                    //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.UpdateGridPositions 2");
                     for (int i = 0; i < _playerGridGroup.Length; i++)
                     {
                         //PiscusFollower.PlayerGridGroup playerGridGroup = __instance._playerGridGroup[i];
                         object playerGridGroup = _playerGridGroup[i];
-                        //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.UpdateGridPositions 3");
+                        //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.UpdateGridPositions 3");
                         IPlayer player = pi_player.GetValue(playerGridGroup) as IPlayer;
-                        //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.UpdateGridPositions 4");
+                        //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.UpdateGridPositions 4");
                         //if (playerGridGroup.Player != null)
                         if (player != null)
                         {
-                            //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.UpdateGridPositions 5");
+                            //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.UpdateGridPositions 5");
                             object[,] spawnGrids = fi_SpawnGrids.GetValue(playerGridGroup) as object[,];
-                            //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.UpdateGridPositions 6");
+                            //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.UpdateGridPositions 6");
                             Transform t11 = fi_Grid.GetValue(spawnGrids[1, 1]) as Transform;
-                            //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.UpdateGridPositions 7");
+                            //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.UpdateGridPositions 7");
                             //playerGridGroup.SpawnGrids[0, 0].Grid.position = new Vector3(playerGridGroup.SpawnGrids[1, 1].Grid.position.x - _zoneTerrainSize, __instance.transform.position.y, playerGridGroup.SpawnGrids[1, 1].Grid.position.z + _zoneTerrainSize);
                             Transform t00 = fi_Grid.GetValue(spawnGrids[0, 0]) as Transform;
                             t00.position = new Vector3(t11.position.x - ZoneTerrainSize, __instance.transform.position.y, t11.position.z + ZoneTerrainSize);
@@ -269,13 +269,13 @@ namespace StrandedWideMod_Harmony
                             Transform t22 = fi_Grid.GetValue(spawnGrids[2, 2]) as Transform;
                             t22.position = new Vector3(t11.position.x - ZoneTerrainSize, __instance.transform.position.y, t11.position.z + ZoneTerrainSize);
 
-                            //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.UpdateGridPositions 8");
+                            //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.UpdateGridPositions 8");
                             if ((bool)fi_removedWildlifeSetting.GetValue(__instance))
                             {
                                 return false;
                             }
 
-                            //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.UpdateGridPositions 9");
+                            //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.UpdateGridPositions 9");
                             for (int j = 0; j < 3; j++)
                             {
                                 for (int k = 0; k < 3; k++)
@@ -290,7 +290,7 @@ namespace StrandedWideMod_Harmony
                                     }
                                 }
                             }
-                            //Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower.UpdateGridPositions 10");
+                            //CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower.UpdateGridPositions 10");
                         }
                     }
                     // skip original method
@@ -298,7 +298,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching PiscusFollower.UpdateGridPositions : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching PiscusFollower.UpdateGridPositions : " + e);
                 }
                 return true;
             }

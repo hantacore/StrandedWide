@@ -150,6 +150,8 @@ namespace StrandedWideMod_Harmony
 
         #endregion
 
+        public static bool CastawayMode { get; set; }
+
         // image size : must be power of 2 : 256, 512, 1024, 2048...
         //internal static int _islandSize;
         public static int IslandSize
@@ -294,7 +296,7 @@ namespace StrandedWideMod_Harmony
             get
             {
                 int ratio = IslandSize / (StrandedWorld.ZONE_HEIGHTMAP_SIZE - 1);
-                //Debug.Log("Stranded Wide (Harmony edition) : computed IslandSize ratio = " + ratio);
+                //CustomLogger.Log("Stranded Wide (Harmony edition) : computed IslandSize ratio = " + ratio);
                 return ratio;
             }
         }
@@ -323,18 +325,18 @@ namespace StrandedWideMod_Harmony
                 }
                 else if (IslandSize == 512)
                 {
-                    //Debug.Log("Stranded Wide (Harmony edition) : computed WaveOverlayPosition 512 = " + (ZoneTerrainSize / 4));
+                    //CustomLogger.Log("Stranded Wide (Harmony edition) : computed WaveOverlayPosition 512 = " + (ZoneTerrainSize / 4));
                     return ZoneTerrainSize / 4f; // 128
                 }
                 else if (IslandSize == 1024)
                 {
-                    //Debug.Log("Stranded Wide (Harmony edition) : computed WaveOverlayPosition 1024 = " + (ZoneTerrainSize / 2.67f));
+                    //CustomLogger.Log("Stranded Wide (Harmony edition) : computed WaveOverlayPosition 1024 = " + (ZoneTerrainSize / 2.67f));
                     return ZoneTerrainSize / 2.67f; // 374.5 (375 ?)
                 }
                 else if (IslandSize == 2048)
                 {
                     float result = (ZoneTerrainSize / 2.67f);
-                    Debug.Log("Stranded Wide (Harmony edition) : computed WaveOverlayPosition 2048 = " + result);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : computed WaveOverlayPosition 2048 = " + result);
                     return result;
                 }
                 return 0;
@@ -585,7 +587,7 @@ namespace StrandedWideMod_Harmony
 
             try
             {
-                Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World attempting to add more objects");
+                CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World attempting to add more objects");
 
                 if (StrandedWorld.Instance.ProceduralObjectsManager != null
                     && StrandedWorld.Instance.ProceduralObjectsManager.BiomeGeneration != null)
@@ -603,7 +605,7 @@ namespace StrandedWideMod_Harmony
                             ZoneObjects zoneObjects = biomeCategory.ProceduralObjects[j];
                             ZoneGenerationType generationType = zoneObjects.generationType;
 
-                            //Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World BiomeGeneration : " + zoneObjects.name + " / spawnChance = " + zoneObjects.spawnChance + " / maxObjectCount = " + zoneObjects.maxObjectCount + " / detailAmountFactor = " + zoneObjects.detailAmountFactor);
+                            //CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World BiomeGeneration : " + zoneObjects.name + " / spawnChance = " + zoneObjects.spawnChance + " / maxObjectCount = " + zoneObjects.maxObjectCount + " / detailAmountFactor = " + zoneObjects.detailAmountFactor);
                             
                             if (generationType == ZoneGenerationType.Procedural)
                             {
@@ -616,14 +618,14 @@ namespace StrandedWideMod_Harmony
                                 if (zoneObjects.name == "GEN_BOAR")
                                     zob_GEN_BOAR = zoneObjects;
 
-                                //Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World BiomeGeneration : " + zoneObjects.name + " / spawnChance = " + zoneObjects.spawnChance + " / maxObjectCount = " + zoneObjects.maxObjectCount + " / detailAmountFactor = " + zoneObjects.detailAmountFactor);
+                                //CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World BiomeGeneration : " + zoneObjects.name + " / spawnChance = " + zoneObjects.spawnChance + " / maxObjectCount = " + zoneObjects.maxObjectCount + " / detailAmountFactor = " + zoneObjects.detailAmountFactor);
                                 if (rarityUpdate.ContainsKey(zoneObjects.name))
                                 {
                                     //zoneObjects.detailAmountFactor = rarityUpdate[zoneObjects.name].Key;
                                     zoneObjects.spawnChance = rarityUpdate[zoneObjects.name].Key;
                                     zoneObjects.maxObjectCount = rarityUpdate[zoneObjects.name].Value;
                                 }
-                                //Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World BiomeGeneration : " + zoneObjects.name + " / spawnChance = " + zoneObjects.spawnChance + " / maxObjectCount = " + zoneObjects.maxObjectCount + " / detailAmountFactor = " + zoneObjects.detailAmountFactor);
+                                //CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World BiomeGeneration : " + zoneObjects.name + " / spawnChance = " + zoneObjects.spawnChance + " / maxObjectCount = " + zoneObjects.maxObjectCount + " / detailAmountFactor = " + zoneObjects.detailAmountFactor);
                             }
                         }
                     }
@@ -634,7 +636,7 @@ namespace StrandedWideMod_Harmony
                         // adding random things on small islands
                         if (biomeCategory.Biome == Zone.BiomeType.ISLAND_SMALL)
                         {
-                            Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World BiomeGeneration : adding things on small islands");
+                            CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World BiomeGeneration : adding things on small islands");
                             zob_GEN_SNAKE.spawnOnStartingIsland = false;
                             biomeCategory.ProceduralObjects.Add(zob_GEN_SNAKE);
                             zob_GEN_HIDINGSPOT_SNAKE.spawnOnStartingIsland = false;
@@ -644,7 +646,7 @@ namespace StrandedWideMod_Harmony
                         // adding random things on big islands
                         if (biomeCategory.Biome == Zone.BiomeType.ISLAND)
                         {
-                            Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World BiomeGeneration : adding things on big islands");
+                            CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World BiomeGeneration : adding things on big islands");
                             biomeCategory.ProceduralObjects.Add(zob_GEN_BUSH);
                         }
                     }
@@ -660,17 +662,17 @@ namespace StrandedWideMod_Harmony
                         {
                             ZoneObjects zoneObjects = objectCategory.ProceduralObjects[j];
                             ZoneGenerationType generationType = zoneObjects.generationType;
-                            //Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World ObjectGeneration : " + zoneObjects.name + " / spawnChance = " + zoneObjects.spawnChance + " / maxObjectCount = " + zoneObjects.maxObjectCount + " / detailAmountFactor = " + zoneObjects.detailAmountFactor);
+                            //CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World ObjectGeneration : " + zoneObjects.name + " / spawnChance = " + zoneObjects.spawnChance + " / maxObjectCount = " + zoneObjects.maxObjectCount + " / detailAmountFactor = " + zoneObjects.detailAmountFactor);
                             if (generationType == ZoneGenerationType.Procedural)
                             {
-                                //Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World ObjectGeneration : " + zoneObjects.name + " / spawnChance = " + zoneObjects.spawnChance + " / maxObjectCount = " + zoneObjects.maxObjectCount + " / detailAmountFactor = " + zoneObjects.detailAmountFactor);
+                                //CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World ObjectGeneration : " + zoneObjects.name + " / spawnChance = " + zoneObjects.spawnChance + " / maxObjectCount = " + zoneObjects.maxObjectCount + " / detailAmountFactor = " + zoneObjects.detailAmountFactor);
                                 if (rarityUpdate.ContainsKey(zoneObjects.name))
                                 {
                                     //zoneObjects.detailAmountFactor = rarityUpdate[zoneObjects.name].Key;
                                     zoneObjects.spawnChance = rarityUpdate[zoneObjects.name].Key;
                                     zoneObjects.maxObjectCount = rarityUpdate[zoneObjects.name].Value;
                                 }
-                                //Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World ObjectGeneration : " + zoneObjects.name + " / spawnChance = " + zoneObjects.spawnChance + " / maxObjectCount = " + zoneObjects.maxObjectCount + " / detailAmountFactor = " + zoneObjects.detailAmountFactor);
+                                //CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World ObjectGeneration : " + zoneObjects.name + " / spawnChance = " + zoneObjects.spawnChance + " / maxObjectCount = " + zoneObjects.maxObjectCount + " / detailAmountFactor = " + zoneObjects.detailAmountFactor);
                             }
                         }
                     }
@@ -678,7 +680,7 @@ namespace StrandedWideMod_Harmony
             }
             catch (Exception e)
             {
-                Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World crash while attempting to add more objects " + e);
+                CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World crash while attempting to add more objects " + e);
             }
         }
 
@@ -689,15 +691,15 @@ namespace StrandedWideMod_Harmony
                 WorldBarrier[] barriers = Game.FindObjectsOfType<WorldBarrier>();
                 foreach (WorldBarrier barrier in barriers)
                 {
-                    Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World attempting to remove world barrier");
+                    CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World attempting to remove world barrier");
                     barrier.gameObject.SetActive(false);
                     Game.Destroy(barrier.gameObject);
-                    Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World world barrier removed");
+                    CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World world barrier removed");
                 }
             }
             catch (Exception e)
             {
-                Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World error while attempting to remove world barrier " + e);
+                CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World error while attempting to remove world barrier " + e);
             }
         }
 

@@ -98,7 +98,7 @@ namespace StrandedDeepModsUtils
                         {
                             try
                             {
-                                //Debug.Log(currentMod.Info.DisplayName + " : looking for " + release.Id);
+                                //CustomLogger.Log(currentMod.Info.DisplayName + " : looking for " + release.Id);
                                 UnityModManager.ModEntry modEntry = UnityModManager.FindMod(release.Id);
                                 if (modEntry != null)
                                 {
@@ -109,9 +109,9 @@ namespace StrandedDeepModsUtils
                                     if (string.IsNullOrEmpty(modEntry.CustomRequirements))
                                     {
                                         Version remoteVersionRepo = Version.Parse(release.Version.Replace("-beta", ""));
-                                        //Debug.Log(currentMod.Info.DisplayName + " : remoteVersionRepo " + remoteVersionRepo);
+                                        //CustomLogger.Log(currentMod.Info.DisplayName + " : remoteVersionRepo " + remoteVersionRepo);
                                         Version localVersion = Version.Parse(modEntry.Info.Version.Replace("-beta", ""));
-                                        //Debug.Log(currentMod.Info.DisplayName + " : localVersion " + localVersion);
+                                        //CustomLogger.Log(currentMod.Info.DisplayName + " : localVersion " + localVersion);
                                         if (remoteVersionRepo > localVersion)
                                         {
                                             modEntry.CustomRequirements = "<color=orange>Update available (" + release.Version + ")</color>";

@@ -67,7 +67,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching IslandDebugTexture.AttachTexture : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching IslandDebugTexture.AttachTexture : " + e);
                 }
                 return true;
             }
@@ -100,7 +100,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching IslandDebugTexture.RenderSoilMapImageIcon : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching IslandDebugTexture.RenderSoilMapImageIcon : " + e);
                 }
                 return true;
             }

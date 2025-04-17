@@ -39,7 +39,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching LE_ZoneTileGenerator.GenerateShoreMap : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching LE_ZoneTileGenerator.GenerateShoreMap : " + e);
                 }
                 return true;
             }
@@ -61,7 +61,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching LE_ZoneTileGenerator.GenerateRandomIsland : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching LE_ZoneTileGenerator.GenerateRandomIsland : " + e);
                 }
                 return true;
             }
@@ -86,7 +86,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching LE_ZoneTileGenerator.GenerateAdvancedPerlin : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching LE_ZoneTileGenerator.GenerateAdvancedPerlin : " + e);
                 }
                 return true;
             }
@@ -110,7 +110,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching LE_ZoneTileGenerator.GenerateAdvancedNormalise : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching LE_ZoneTileGenerator.GenerateAdvancedNormalise : " + e);
                 }
                 return true;
             }
@@ -134,7 +134,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching LE_ZoneTileGenerator.GenerateSmooth : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching LE_ZoneTileGenerator.GenerateSmooth : " + e);
                 }
                 return true;
             }
@@ -195,7 +195,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching LE_ZoneTileGenerator.AddWaveOverlay : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching LE_ZoneTileGenerator.AddWaveOverlay : " + e);
                 }
                 return true;
             }
@@ -219,7 +219,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching LE_ZoneTileGenerator.LoadMap : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching LE_ZoneTileGenerator.LoadMap : " + e);
                 }
                 return true;
             }

@@ -28,7 +28,7 @@ namespace StrandedWideMod_Harmony
             {
                 try
                 {
-                    Debug.LogError("Stranded Wide (Harmony edition) : CreateWorldZonePoints " + seed + " / zone size " + ZoneSize + " / spacing " + ZoneSpacing + " / count " + IslandsCount);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : CreateWorldZonePoints " + seed + " / zone size " + ZoneSize + " / spacing " + ZoneSpacing + " / count " + IslandsCount);
 
                     int num = IslandsCount;
                     float islandZoneSize = ZoneSize;
@@ -42,7 +42,7 @@ namespace StrandedWideMod_Harmony
                     //{
                     //    Debug.LogError("Stranded Wide (Harmony edition) : _generatedZonePoints instances are different");
                     //}
-                    Debug.LogError("Stranded Wide (Harmony edition) : World.GeneratedZonePoints.Length : " + World.GeneratedZonePoints.Length);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : World.GeneratedZonePoints.Length : " + World.GeneratedZonePoints.Length);
 
                     Vector2[] generatedPositions = new Vector2[num];
                     //World._generationZonePositons = generatedPositions;
@@ -51,12 +51,12 @@ namespace StrandedWideMod_Harmony
                     //{
                     //    Debug.LogError("Stranded Wide (Harmony edition) : _generationZonePositons instances are different");
                     //}
-                    Debug.LogError("Stranded Wide (Harmony edition) : World.GenerationZonePositons.Length : " + World.GenerationZonePositons.Length);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : World.GenerationZonePositons.Length : " + World.GenerationZonePositons.Length);
 
                     FastRandom fastRandom = new FastRandom(seed);
                     List<int> list = new List<int>();
                     int upperBound = generatedPoints.Length;
-                    Debug.LogError("Stranded Wide (Harmony edition) : start picking positions");
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : start picking positions");
                     for (int i = 0; i < num; i++)
                     {
                         int num4 = fastRandom.Next(0, upperBound);
@@ -69,16 +69,16 @@ namespace StrandedWideMod_Harmony
                             num4 = 0;
                         }
                         list.Add(num4);
-                        //Debug.Log("Stranded Wide (Harmony edition) : adding generated position " + i);
+                        //CustomLogger.Log("Stranded Wide (Harmony edition) : adding generated position " + i);
                         generatedPositions[i] = generatedPoints[num4];
                         //World.GenerationZonePositons[i] = World.GeneratedZonePoints[num4];
                     }
-                    Debug.LogError("Stranded Wide (Harmony edition) : end picking positions");
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : end picking positions");
 
                     // should never happen !
                     if (generatedPositions.Length < num - 1)
                     {
-                        Debug.LogError("Error: Not enough island positions");
+                        CustomLogger.Log("Error: Not enough island positions");
                     }
 
                     pi_generationZonePositons.SetValue(null, generatedPositions);
@@ -92,7 +92,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching World.CreateWorldZonePoints : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching World.CreateWorldZonePoints : " + e);
                 }
                 return true;
             }
@@ -105,11 +105,13 @@ namespace StrandedWideMod_Harmony
             {
                 try
                 {
+                    // passing through here CHECK
+                    //CustomLogger.Log("Stranded Wide (Harmony edition) : World.LoadWorldMaps");
                     Main.IncreaseObjectsNumberForProceduralGeneration();
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching World.LoadWorldMaps PostFix : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching World.LoadWorldMaps PostFix : " + e);
                 }
             }
         }
@@ -160,7 +162,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching World.ImportHeightmapFromRawFile : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching World.ImportHeightmapFromRawFile : " + e);
                 }
                 return true;
             }

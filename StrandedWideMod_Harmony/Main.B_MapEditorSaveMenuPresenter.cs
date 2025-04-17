@@ -83,7 +83,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching MapEditorSaveMenuPresenter.SaveMap : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching MapEditorSaveMenuPresenter.SaveMap : " + e);
                 }
                 return true;
             }

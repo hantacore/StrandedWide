@@ -92,7 +92,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching StrandedWorld_Save_Patch : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching StrandedWorld_Save_Patch : " + e);
                 }
                 return true;
             }
@@ -108,7 +108,7 @@ namespace StrandedWideMod_Harmony
                     if (World.GenerationZonePositons == null)
                     {
                         World.CreateWorldZonePoints(StrandedWorld.WORLD_SEED);
-                        Debug.Log("StrandedWorld::CreateZones:: No Zone Positions Loaded - Creating New World Zone Positions");
+                        CustomLogger.Log("StrandedWorld::CreateZones:: No Zone Positions Loaded - Creating New World Zone Positions");
                     }
                     for (int i = 0; i < Main.IslandsCount; i++)
                     {
@@ -127,7 +127,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching StrandedWorld_LoadZonePositions_Patch : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching StrandedWorld_LoadZonePositions_Patch : " + e);
                 }
                 return true;
             }
@@ -237,7 +237,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching StrandedWorld_LoadObjects_Patch : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching StrandedWorld_LoadObjects_Patch : " + e);
                 }
                 return true;
             }
@@ -290,7 +290,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching StrandedWorld_PollZones_Patch : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching StrandedWorld_PollZones_Patch : " + e);
                 }
                 return true;
             }
@@ -306,24 +306,24 @@ namespace StrandedWideMod_Harmony
 //                {
 
 //                    //if (__result)
-//                    //    Debug.Log("Stranded Wide (Harmony edition) : PollUnload " + zone.name + " do unload");
+//                    //    CustomLogger.Log("Stranded Wide (Harmony edition) : PollUnload " + zone.name + " do unload");
 //                    //else
 //                    //{
-//                    //    Debug.Log("Stranded Wide (Harmony edition) : PollUnload " + zone.name + " do not unload");
-//                    //    //Debug.Log("Stranded Wide (Harmony edition) : PollUnload " + zone.name + " do not load");
-//                    //    //Debug.Log("Stranded Wide (Harmony edition) : PollUnload " + zone.name + " loading " + zone.Loading);
-//                    //    //Debug.Log("Stranded Wide (Harmony edition) : PollUnload " + zone.name + " loaded " + zone.Loaded);
+//                    //    CustomLogger.Log("Stranded Wide (Harmony edition) : PollUnload " + zone.name + " do not unload");
+//                    //    //CustomLogger.Log("Stranded Wide (Harmony edition) : PollUnload " + zone.name + " do not load");
+//                    //    //CustomLogger.Log("Stranded Wide (Harmony edition) : PollUnload " + zone.name + " loading " + zone.Loading);
+//                    //    //CustomLogger.Log("Stranded Wide (Harmony edition) : PollUnload " + zone.name + " loaded " + zone.Loaded);
 
 //                    //    ////PlayerRegistry.AllPlayers.Any_NonAlloc(new Func<IPlayer, Zone, bool>(this.InZoneLoadingBounds), zone)
 //                    //    //bool playerInZoneLoadingBounds = PlayerRegistry.AllPlayers.Any_NonAlloc(player => (bool)mi_InZoneLoadingBounds.Invoke(__instance, new object[] { player, zone }));
-//                    //    //Debug.Log("Stranded Wide (Harmony edition) : PollZones " + zone.name + " playerInZoneLoadingBounds " + playerInZoneLoadingBounds);
+//                    //    //CustomLogger.Log("Stranded Wide (Harmony edition) : PollZones " + zone.name + " playerInZoneLoadingBounds " + playerInZoneLoadingBounds);
 //                    //}
 
 
 //                }
 //                catch (Exception e)
 //                {
-//                    Debug.Log("Stranded Wide (Harmony edition) : error while patching StrandedWorld_PollUnload_Patch : " + e);
+//                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching StrandedWorld_PollUnload_Patch : " + e);
 //                }
 
 //                return true;
@@ -339,21 +339,21 @@ namespace StrandedWideMod_Harmony
         //        try
         //        {
         //            if (__result)
-        //                Debug.Log("Stranded Wide (Harmony edition) : PollZones " + zone.name + " do load");
+        //                CustomLogger.Log("Stranded Wide (Harmony edition) : PollZones " + zone.name + " do load");
         //            else
         //            {
-        //                Debug.Log("Stranded Wide (Harmony edition) : PollZones " + zone.name + " do not load");
-        //                Debug.Log("Stranded Wide (Harmony edition) : PollZones " + zone.name + " loading " + zone.Loading);
-        //                Debug.Log("Stranded Wide (Harmony edition) : PollZones " + zone.name + " loaded " + zone.Loaded);
+        //                CustomLogger.Log("Stranded Wide (Harmony edition) : PollZones " + zone.name + " do not load");
+        //                CustomLogger.Log("Stranded Wide (Harmony edition) : PollZones " + zone.name + " loading " + zone.Loading);
+        //                CustomLogger.Log("Stranded Wide (Harmony edition) : PollZones " + zone.name + " loaded " + zone.Loaded);
 
         //                //PlayerRegistry.AllPlayers.Any_NonAlloc(new Func<IPlayer, Zone, bool>(this.InZoneLoadingBounds), zone)
         //                bool playerInZoneLoadingBounds = PlayerRegistry.AllPlayers.Any_NonAlloc(player => (bool)mi_InZoneLoadingBounds.Invoke(__instance, new object[] { player, zone }));
-        //                Debug.Log("Stranded Wide (Harmony edition) : PollZones " + zone.name + " playerInZoneLoadingBounds " + playerInZoneLoadingBounds);
+        //                CustomLogger.Log("Stranded Wide (Harmony edition) : PollZones " + zone.name + " playerInZoneLoadingBounds " + playerInZoneLoadingBounds);
         //            }
         //        }
         //        catch (Exception e)
         //        {
-        //            Debug.Log("Stranded Wide (Harmony edition) : error while patching StrandedWorld_PollZones_Patch : " + e);
+        //            CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching StrandedWorld_PollZones_Patch : " + e);
         //        }
         //    }
         //}
@@ -365,7 +365,7 @@ namespace StrandedWideMod_Harmony
             {
                 try
                 {
-                    //Debug.Log("Stranded Wide (Harmony edition) : ghost zones fix test ");
+                    //CustomLogger.Log("Stranded Wide (Harmony edition) : ghost zones fix test ");
                     for (int i = Main.IslandsCount; i < __instance.Zones.Length; i++)
                     {
                         Zone zone = __instance.Zones[i];
@@ -404,15 +404,15 @@ namespace StrandedWideMod_Harmony
                         }
                     }
 
-                    Debug.Log("Stranded Wide (Harmony edition) : InitializeZones StrandedWorld Zones count : " + StrandedWorld.Instance.Zones.Length);
-                    Debug.Log("Stranded Wide (Harmony edition) : InitializeZones World.MapList count : " + Beam.Terrain.World.MapList.Length);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : InitializeZones StrandedWorld Zones count : " + StrandedWorld.Instance.Zones.Length);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : InitializeZones World.MapList count : " + Beam.Terrain.World.MapList.Length);
 
                     // skip original method
                     return false;
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching StrandedWorld_InitializeZones_Patch : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching StrandedWorld_InitializeZones_Patch : " + e);
                 }
                 return true;
             }

@@ -120,7 +120,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching ZonePositionGenerator.GeneratePoints : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching ZonePositionGenerator.GeneratePoints : " + e);
                 }
                 return true;
             }

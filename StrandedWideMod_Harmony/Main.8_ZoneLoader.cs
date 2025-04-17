@@ -32,7 +32,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching ZoneLoader.GenerateObjects : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching ZoneLoader.GenerateObjects : " + e);
                 }
                 return true;
             }
@@ -50,7 +50,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching ZoneLoader.GenerateProceduralObjectsPosition : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching ZoneLoader.GenerateProceduralObjectsPosition : " + e);
                 }
                 return true;
             }
@@ -170,7 +170,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching ZoneLoader.GenerateProceduralObjectsProcedural : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching ZoneLoader.GenerateProceduralObjectsProcedural : " + e);
                 }
                 return true;
             }
@@ -186,7 +186,7 @@ namespace StrandedWideMod_Harmony
                     if (zone.HasShelter)
                     {
                         int shelterType = zone.ShelterType;
-                        UnityEngine.Debug.Log(">>Generating shelter type : " + zoneObjects.Objects[shelterType].Obj.gameObject.name + ", on Zone :" + zone.ZoneName);
+                        CustomLogger.Log(">>Generating shelter type : " + zoneObjects.Objects[shelterType].Obj.gameObject.name + ", on Zone :" + zone.ZoneName);
                         int detailAmountFactor = zoneObjects.detailAmountFactor;
                         int num = 0;
                         int num2 = (shelterType == 7) ? 8 : ((int)Mathf.Sqrt((float)zoneObjects.detailAmountFactor));
@@ -287,7 +287,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching ZoneLoader.GenerateShelter : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching ZoneLoader.GenerateShelter : " + e);
                 }
                 return true;
             }
@@ -300,7 +300,7 @@ namespace StrandedWideMod_Harmony
             {
                 try
                 {
-                    //UnityEngine.Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World CreateGeneratedPrefab " + generationObject.GetType());
+                    //UnityEngine.CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World CreateGeneratedPrefab " + generationObject.GetType());
 
                     if (generationObject is SaveablePrefab)
                     {
@@ -308,7 +308,7 @@ namespace StrandedWideMod_Harmony
                         //309 YACHT
                         if (sprefab.PrefabId == 309)
                         {
-                            UnityEngine.Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World CreateGeneratedPrefab no yachts in here !");
+                            CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World CreateGeneratedPrefab no yachts in here !");
                             return false;
                         }
                         //21 BUOY BOAT
@@ -321,7 +321,7 @@ namespace StrandedWideMod_Harmony
                                     //}
                                     //if (_scaleRandomizer.Next(0, 10) > 5)
                                     //{
-                                    UnityEngine.Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World CreateGeneratedPrefab not too many buoy boats !");
+                                    CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World CreateGeneratedPrefab not too many buoy boats !");
                                     return false;
                                 }
                             }
@@ -330,14 +330,14 @@ namespace StrandedWideMod_Harmony
                     // working
                     //if (generationObject.gameObject.name == "SHIPWRECK_8A")
                     //{
-                    //    UnityEngine.Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World CreateGeneratedPrefab no yachts in here !");
+                    //    UnityEngine.CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World CreateGeneratedPrefab no yachts in here !");
                     //    return;
                     //}
                     //if (generationObject.gameObject.name == "SHIPWRECK_3A")
                     //{
                     //    if (_scaleRandomizer.Next(0, 10) > 5)
                     //    {
-                    //        UnityEngine.Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World CreateGeneratedPrefab not too many buoy boats !");
+                    //        UnityEngine.CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World CreateGeneratedPrefab not too many buoy boats !");
                     //        return;
                     //    }
                     //}
@@ -355,7 +355,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching ZoneLoader.GenerateObject : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching ZoneLoader.GenerateObject : " + e);
                 }
                 return true;
             }
@@ -373,8 +373,8 @@ namespace StrandedWideMod_Harmony
             {
                 try
                 {
-                    //UnityEngine.Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World generating prefab for island : " + zone.name);
-                    //UnityEngine.Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World save container name : " + zone.SaveContainer.name);
+                    //UnityEngine.CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World generating prefab for island : " + zone.name);
+                    //UnityEngine.CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World save container name : " + zone.SaveContainer.name);
 
                     SaveablePrefab component = objectData.Prefab.GetComponent<SaveablePrefab>();
                     GameObject gameObject = null;
@@ -386,7 +386,7 @@ namespace StrandedWideMod_Harmony
                         if (prefabId > 399)
                             return false;
 
-                        //UnityEngine.Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World CreateGeneratedPrefab Id : " + prefabId);
+                        //UnityEngine.CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World CreateGeneratedPrefab Id : " + prefabId);
 
                         MiniGuid referenceId = MiniGuid.NewFrom(objectData.Position, prefabId, 48879);
                         if (Game.Mode.IsClient() && component.IsMultiplayerEntity)
@@ -403,7 +403,7 @@ namespace StrandedWideMod_Harmony
                     }
                     else
                     {
-                        //UnityEngine.Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World CreateGeneratedPrefab Name : " + objectData.Prefab.name);
+                        //UnityEngine.CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World CreateGeneratedPrefab Name : " + objectData.Prefab.name);
                         if (objectData.Prefab.name != "GENERATOR_ISLAND_SHARKS")
                         {
                             gameObject = UnityEngine.Object.Instantiate<GameObject>(objectData.Prefab, objectData.Position, objectData.Rotation);
@@ -463,7 +463,7 @@ namespace StrandedWideMod_Harmony
                         if (zone.IsStartingIsland)
                             sharks_count = 3;
 
-                        //UnityEngine.Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World number of sharks = " + sharks_count);
+                        //UnityEngine.CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World number of sharks = " + sharks_count);
 
                         for (int sharkindex = 0; sharkindex < sharks_count; sharkindex++)
                         {
@@ -484,15 +484,15 @@ namespace StrandedWideMod_Harmony
                                 // 335 GOBLIN
                                 sharkType = 335;
 
-                            //UnityEngine.Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World shark type = " + sharkType);
+                            //UnityEngine.CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World shark type = " + sharkType);
 
                             //SaveablePrefab sp = null;
 
                             string text;
                             bool flag = Prefabs.TryGetMultiplayerPrefabName(sharkType, out text);
-                            //UnityEngine.Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World flag = " + flag);
+                            //UnityEngine.CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World flag = " + flag);
                             MiniGuid referenceId = MiniGuid.NewFrom(position, sharkType, 48879);
-                            //UnityEngine.Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World CreateGeneratedPrefab referenceId = " + referenceId);
+                            //UnityEngine.CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World CreateGeneratedPrefab referenceId = " + referenceId);
                             SaveablePrefab instance = MultiplayerMng.Instantiate<SaveablePrefab>(sharkType, referenceId, null);
 
                             ((PiscusManager)instance).SpawnDistance = 320;
@@ -551,7 +551,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching ZoneLoader.CreateGeneratedPrefab : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching ZoneLoader.CreateGeneratedPrefab : " + e);
                 }
                 return true;
             }
@@ -584,7 +584,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching ZoneLoader.GetProcessingSteps : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching ZoneLoader.GetProcessingSteps : " + e);
                 }
                 return true;
             }

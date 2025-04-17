@@ -85,7 +85,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching MapTools.CreateHeightmapTexture : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching MapTools.CreateHeightmapTexture : " + e);
                 }
                 return true;
             }
@@ -144,7 +144,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching MapTools.GetHeightsFromTexture : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching MapTools.GetHeightsFromTexture : " + e);
                 }
                 return true;
             }

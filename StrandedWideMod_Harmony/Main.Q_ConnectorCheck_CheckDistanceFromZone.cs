@@ -25,7 +25,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching ConnectorCheck_CheckDistanceFromZone_Check_Patch : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching ConnectorCheck_CheckDistanceFromZone_Check_Patch : " + e);
                 }
                 return true;
             }

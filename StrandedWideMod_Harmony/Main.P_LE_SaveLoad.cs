@@ -24,7 +24,7 @@ namespace StrandedWideMod_Harmony
                     throw new Exception("Unused, but could cause problems if suddenly used");
 
                     int mapSize = heightmap.GetLength(0); // maps are supposed to be square
-                    Debug.Log("Stranded Wide (Harmony edition) : saving map with dimension " + mapSize + " x " + mapSize);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : saving map with dimension " + mapSize + " x " + mapSize);
 
                     FileStream fileStream = new FileStream(Application.dataPath + mapsFilePath + mapName + "_heightmap.map", FileMode.Create, FileAccess.ReadWrite);
                     BinaryWriter binaryWriter = new BinaryWriter(fileStream);
@@ -51,7 +51,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching LE_SaveLoad_SaveMapHeightMapFile_Patch : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching LE_SaveLoad_SaveMapHeightMapFile_Patch : " + e);
                 }
                 return true;
             }
@@ -68,10 +68,10 @@ namespace StrandedWideMod_Harmony
 
                     FileStream fileStream = new FileStream(Application.dataPath + mapsFilePath + mapName + "_heightmap.map", FileMode.Open, FileAccess.ReadWrite);
 
-                    Debug.Log("Stranded Wide (Harmony edition) : LoadMapHeightMapFile filestream length = " + fileStream.Length);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : LoadMapHeightMapFile filestream length = " + fileStream.Length);
 
                     int mapSize = 257;
-                    Debug.Log("Stranded Wide (Harmony edition) : loading map with dimension " + mapSize + " x " + mapSize);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : loading map with dimension " + mapSize + " x " + mapSize);
 
                     float[,] array = new float[mapSize, mapSize];
                     BinaryReader binaryReader = new BinaryReader(fileStream);
@@ -91,7 +91,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching LE_SaveLoad_LoadMapHeightMapFile_Patch : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching LE_SaveLoad_LoadMapHeightMapFile_Patch : " + e);
                 }
                 return true;
             }

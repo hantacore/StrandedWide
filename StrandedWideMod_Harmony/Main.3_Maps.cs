@@ -92,7 +92,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching Maps.Save : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching Maps.Save : " + e);
                 }
                 return true;
             }
@@ -219,7 +219,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching Maps.Load : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching Maps.Load : " + e);
                 }
                 return true;
             }

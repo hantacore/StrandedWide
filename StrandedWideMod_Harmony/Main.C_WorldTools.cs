@@ -93,8 +93,8 @@ namespace StrandedWideMod_Harmony
                     if (heightmap[i, j] <= 0.66f)
                     {
                         float r = pixels[i * num + j].r;
-                        //Debug.Log("ISLAND GENERATION : stitch red level r = " + r); // 0 -> 1
-                        //Debug.Log("ISLAND GENERATION : 1f * r = " + 1f * r);
+                        //CustomLogger.Log("ISLAND GENERATION : stitch red level r = " + r); // 0 -> 1
+                        //CustomLogger.Log("ISLAND GENERATION : 1f * r = " + 1f * r);
                         heightmap[i, j] -= 1f * r;
                     }
                 }
@@ -106,22 +106,22 @@ namespace StrandedWideMod_Harmony
                     float relativeX = (IslandSize / 2) - i;
                     float relativeY = (IslandSize / 2) - j;
                     float distanceToCenter = Mathf.Sqrt(relativeX * relativeX + relativeY * relativeY);
-                    //Debug.Log("ISLAND GENERATION : distanceToCenter = " + distanceToCenter); // 0 -> 256
+                    //CustomLogger.Log("ISLAND GENERATION : distanceToCenter = " + distanceToCenter); // 0 -> 256
                     float depth = heightmap[i, j];
-                    //Debug.Log("ISLAND GENERATION : heightmap[i, j] = " + heightmap[i, j]);
-                    //Debug.Log("ISLAND GENERATION : depth = " + depth); // 0 -> 1
+                    //CustomLogger.Log("ISLAND GENERATION : heightmap[i, j] = " + heightmap[i, j]);
+                    //CustomLogger.Log("ISLAND GENERATION : depth = " + depth); // 0 -> 1
                     // 0.66f = island base height
                     // basically we take the stitch texture and if the height of the pixel is below 0.66f
                     // we take the red of the pixel and remove it form the current position of the heightmap
                     //if (heightmap[i, j] <= 0.66f)
                     if (depth <= 0.662 && depth >= 0.64)
                     {
-                        //Debug.Log("ISLAND GENERATION : depth = " + depth); // 0 -> 1
-                        //Debug.Log("ISLAND GENERATION : distanceToCenter = " + distanceToCenter); 
-                        //Debug.Log("ISLAND GENERATION : before = " + heightmap[i, j]);
+                        //CustomLogger.Log("ISLAND GENERATION : depth = " + depth); // 0 -> 1
+                        //CustomLogger.Log("ISLAND GENERATION : distanceToCenter = " + distanceToCenter); 
+                        //CustomLogger.Log("ISLAND GENERATION : before = " + heightmap[i, j]);
                         //heightmap[i, j] -= Math.Min(-depth * (1f + 50 * (distanceToCenter / 100f)), 1f * r);
                         heightmap[i, j] = depth - depth / 40f * (distanceToCenter / 100f);
-                        //Debug.Log("ISLAND GENERATION : after = " + heightmap[i, j]);
+                        //CustomLogger.Log("ISLAND GENERATION : after = " + heightmap[i, j]);
                     }
                 }
             }
@@ -136,29 +136,38 @@ namespace StrandedWideMod_Harmony
                 try
                 {
                     float[,] array = new float[IslandSize + 1, IslandSize + 1];
-                    switch (biomeType)
+                    if (!CastawayMode)
                     {
-                        case Zone.BiomeType.DEEP_SEA:
-                            array = WorldTools.PerlinGenerator(array, randomSeed, 4, 0.9f, 4, 1f);
-                            array = WorldTools.NormalizeHeightmap(array, 0.1f, 0.2f, 1f, biomeType);
-                            break;
-                        case Zone.BiomeType.MEDIUM:
-                            array = WorldTools.PerlinGenerator(array, randomSeed, 12, 0.5f, 6, 1f);
-                            array = WorldTools.NormalizeHeightmap(array, 0.3f, 0.45f, 1f, biomeType);
-                            break;
-                        case Zone.BiomeType.SHALLOW:
-                            array = WorldTools.PerlinGenerator(array, randomSeed, 6, 0.5f, 6, 1f);
-                            array = WorldTools.NormalizeHeightmap(array, 0.44f, 0.55f, 1f, biomeType);
-                            break;
-                        case Zone.BiomeType.ISLAND:
-                            array = WorldTools.GENERATE_ISLAND_HEIGHTMAP(randomSeed, biomeType, false);
-                            break;
-                        case Zone.BiomeType.ISLAND_SMALL:
-                            array = WorldTools.GENERATE_ISLAND_HEIGHTMAP(randomSeed, biomeType, false);
-                            break;
-                        case Zone.BiomeType.ISLAND_ROCK:
-                            array = WorldTools.GENERATE_ISLAND_HEIGHTMAP(randomSeed, biomeType, false);
-                            break;
+                        switch (biomeType)
+                        {
+                            case Zone.BiomeType.DEEP_SEA:
+                                array = WorldTools.PerlinGenerator(array, randomSeed, 4, 0.9f, 4, 1f);
+                                array = WorldTools.NormalizeHeightmap(array, 0.1f, 0.2f, 1f, biomeType);
+                                break;
+                            case Zone.BiomeType.MEDIUM:
+                                array = WorldTools.PerlinGenerator(array, randomSeed, 12, 0.5f, 6, 1f);
+                                array = WorldTools.NormalizeHeightmap(array, 0.3f, 0.45f, 1f, biomeType);
+                                break;
+                            case Zone.BiomeType.SHALLOW:
+                                array = WorldTools.PerlinGenerator(array, randomSeed, 6, 0.5f, 6, 1f);
+                                array = WorldTools.NormalizeHeightmap(array, 0.44f, 0.55f, 1f, biomeType);
+                                break;
+                            case Zone.BiomeType.ISLAND:
+                                array = WorldTools.GENERATE_ISLAND_HEIGHTMAP(randomSeed, biomeType, false);
+                                break;
+                            case Zone.BiomeType.ISLAND_SMALL:
+                                array = WorldTools.GENERATE_ISLAND_HEIGHTMAP(randomSeed, biomeType, false);
+                                break;
+                            case Zone.BiomeType.ISLAND_ROCK:
+                                array = WorldTools.GENERATE_ISLAND_HEIGHTMAP(randomSeed, biomeType, false);
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        CustomLogger.Log("Stranded Wide (Harmony edition) : CASTAWAY mode test");
+                        array = WorldTools.PerlinGenerator(array, randomSeed, 4, 1.9f, 4, 1f);
+                        array = WorldTools.NormalizeHeightmap(array, 0.1f, 0.8f, 1f, biomeType);
                     }
                     __result = array;
                     // skip original method
@@ -166,7 +175,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching WorldTools.GenerateZoneHeightmap : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching WorldTools.GenerateZoneHeightmap : " + e);
                 }
                 return true;
             }
@@ -293,7 +302,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching WorldTools.GENERATE_ISLAND_HEIGHTMAP : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching WorldTools.GENERATE_ISLAND_HEIGHTMAP : " + e);
                 }
                 return true;
             }
@@ -369,7 +378,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching WorldTools.GenerateTerrain : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching WorldTools.GenerateTerrain : " + e);
                 }
                 return true;
             }

@@ -20,7 +20,10 @@ namespace StrandedWideMod_Harmony
         // known issues
         //nutmeg521 : You don't seem to be able to place items all the way to the edge of the build-able area.
         //Also, if you try to move an object after placing it down, it glitches to the middle point of the island and you can then only move it within one quarter of the map.
-
+        // [Manager] Version: 0.23.5.0.
+        // [Manager] OS: Microsoft Windows NT 10.0.19045.0 AMD64.
+        // [Manager] Net Framework: 4.0.30319.42000.
+        // [Manager] Unity Engine: 2021.2.71.
 
         private static Harmony harmony;
         public static TMPLabelViewAdapter _versionNumberLabel = null;
@@ -49,33 +52,33 @@ namespace StrandedWideMod_Harmony
         {
             try
             {
-                ////Debug.Log(modName + " current directory = " + Directory.GetCurrentDirectory());
+                ////CustomLogger.Log(modName + " current directory = " + Directory.GetCurrentDirectory());
                 //UnityModManager.FindMod("StrandedWideMod").Path
                 //string utilitiesPath = Path.Combine(Directory.GetCurrentDirectory(), @"Mods\" + Assembly.GetExecutingAssembly().GetName().Name + @"\StrandedDeepModsUtilities.dll");
-                ////Debug.Log(modName + " utilities directory = " + utilitiesPath);
+                ////CustomLogger.Log(modName + " utilities directory = " + utilitiesPath);
                 //if (File.Exists(utilitiesPath))
                 //{
                 //    try
                 //    {
                 //        //Assembly a = Assembly.LoadFile(utilitiesPath);
                 //        //Directory.SetCurrentDirectory(Path.Combine(Directory.GetCurrentDirectory(), @"Stranded_Deep_Data\Managed\"));
-                //        //Debug.Log(modName + " utilities assembly name : " + a.GetName());
+                //        //CustomLogger.Log(modName + " utilities assembly name : " + a.GetName());
                 //        StrandedDeepModsUtilities.ModUtilities.IsStrandedWide();
                 //    }
                 //    catch (Exception e)
                 //    {
-                //        Debug.Log(modName + " utilities not loaded " + e);
+                //        CustomLogger.Log(modName + " utilities not loaded " + e);
                 //    }
                 //}
 
                 //foreach(MethodInfo mi in typeof(LE_LevelEditor.LE_LevelEditorMain).GetMethods(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public))
                 //{
-                //    Debug.Log("Stranded Wide (Harmony edition) : LE_LevelEditorMain method name = " + mi.Name);
+                //    CustomLogger.Log("Stranded Wide (Harmony edition) : LE_LevelEditorMain method name = " + mi.Name);
                 //}
 
                 //foreach(Type type in typeof(PiscusFollower).GetNestedTypes(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public))
                 //{
-                //    Debug.Log("Stranded Wide (Harmony edition) : PiscusFollower nested type name = " + type.Name);
+                //    CustomLogger.Log("Stranded Wide (Harmony edition) : PiscusFollower nested type name = " + type.Name);
                 //}
 
                 modEntry.OnUpdate = new Action<UnityModManager.ModEntry, float>(Main.OnUpdate);
@@ -174,6 +177,10 @@ namespace StrandedWideMod_Harmony
                     FilePath.SAVE_ROOT
                 });
 
+                //CustomLogger.Log("Stranded Wide (Harmony edition) : LOG FILE ??????? " + Application.consoleLogPath);
+
+                CustomLogger.InitCustomLogger(FilePath.USER_FOLDER.Replace("Deep", modEditionName));
+
                 PatchFolder("SAVE_FOLDER", newSaveFolder);
 
                 PatchFolder("OPTIONS_FILE", PathTools.Combine(new string[]
@@ -210,19 +217,24 @@ namespace StrandedWideMod_Harmony
             }
             catch (Exception e)
             {
-                Debug.Log("Stranded Wide (Harmony edition) : error while patching FilePath : " + e);
+                CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching FilePath : " + e);
             }
         }
 
+        //private static void PatchLogFilePath()
+        //{
+        //    Debug.unityLogger.
+        //}
+
         private static void PatchFolder(string folder, string path)
         {
-            Debug.Log("Stranded Wide (Harmony edition) : " + folder + " new value " + path);
+            CustomLogger.Log("Stranded Wide (Harmony edition) : " + folder + " new value " + path);
 
             //FieldInfo field = AccessTools.Field(typeof(FilePath), folder);
             FieldInfo field = typeof(FilePath).GetField(folder, BindingFlags.Static | BindingFlags.Public);
             field.SetValue(null, path);
 
-            Debug.Log("Stranded Wide (Harmony edition) : " + folder + " patched to " + field.GetValue(null));
+            CustomLogger.Log("Stranded Wide (Harmony edition) : " + folder + " patched to " + field.GetValue(null));
         }
 
         private static bool OnToggle(UnityModManager.ModEntry modEntry, bool value /* active or inactive */)
@@ -261,6 +273,15 @@ namespace StrandedWideMod_Harmony
 
                 GUILayout.Label("Island count = " + IslandsCountBuffer.ToString() + " (vanilla is " + StrandedWorld.WORLD_ZONES_SQUARED + ")");
                 IslandsCountBuffer = (int)GUILayout.HorizontalSlider(IslandsCountBuffer, 10, 49);
+
+                //CastawayMode = true;
+
+                //if (CastawayMode)
+                //{
+                //    IslandSizeBuffer = 2048;
+                //    IslandsCountBuffer = 7;
+                //    ZoneSpacingBuffer = 2.0f;
+                //}
             }
         }
 
@@ -282,11 +303,11 @@ namespace StrandedWideMod_Harmony
                     if (Directory.Exists(FilePath.SAVE_FOLDER)
                         && File.Exists(FilePath.OPTIONS_FILE))
                     {
-                        Debug.Log("Stranded Wide (Harmony edition) : reloading options from " + FilePath.OPTIONS_FILE);
+                        CustomLogger.Log("Stranded Wide (Harmony edition) : reloading options from " + FilePath.OPTIONS_FILE);
                         Options.Load();
                     }
 
-                    Debug.Log("Stranded Wide (Harmony edition) : reloading options last slot = " + Options.GeneralSettings.LastSaveSlotUsed);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : reloading options last slot = " + Options.GeneralSettings.LastSaveSlotUsed);
                     SaveManager.ChangeCurrentSlot(Options.GeneralSettings.LastSaveSlotUsed);
 
                     optionsReloaded = true;
@@ -295,7 +316,7 @@ namespace StrandedWideMod_Harmony
                 if (optionsReloaded
                     && !worldReloaded)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : reloading world");
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : reloading world");
                     MainMenuPresenter mmp = Game.FindObjectOfType<MainMenuPresenter>();
                     if (mmp != null)
                     {
@@ -318,8 +339,8 @@ namespace StrandedWideMod_Harmony
                     labelIsDone = false;
                     //if (WorldUtilities.IsWorldLoaded())
                     //{
-                    //    Debug.Log("Stranded Wide (Harmony edition) : Update StrandedWorld Zones count : " + StrandedWorld.Instance.Zones.Length);
-                    //    Debug.Log("Stranded Wide (Harmony edition) : Update World.MapList count : " + Beam.Terrain.World.MapList.Length);
+                    //    CustomLogger.Log("Stranded Wide (Harmony edition) : Update StrandedWorld Zones count : " + StrandedWorld.Instance.Zones.Length);
+                    //    CustomLogger.Log("Stranded Wide (Harmony edition) : Update World.MapList count : " + Beam.Terrain.World.MapList.Length);
                     //}
                 }
                 else
@@ -329,7 +350,7 @@ namespace StrandedWideMod_Harmony
             }
             catch (Exception e)
             {
-                Debug.Log("Stranded Wide (Harmony edition) : error OnUpdate : " + e);
+                CustomLogger.Log("Stranded Wide (Harmony edition) : error OnUpdate : " + e);
             }
         }
 

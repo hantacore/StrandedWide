@@ -21,6 +21,25 @@ namespace StrandedWideMod_Harmony
 {
     static partial class Main
     {
+        [HarmonyPatch(typeof(CartographerMenuPresenter), "LoadWorld", new Type[] { })]
+        class CartographerMenuPresenter_LoadWorld_Patch
+        {
+            static bool Prefix()
+            {
+                try
+                {
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : LoadWorld from CartographerMenuPresenter");
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching CartographerMenuPresenter_LoadWorld_Patch : " + ex);
+                }
+                return false;
+            }
+        }
+
+
         [HarmonyPatch(typeof(CartographerMenuPresenter), "ValidateDuplicateMap")]
         class CartographerMenuPresenter_ValidateDuplicateMap_Patch
         {
@@ -40,7 +59,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception ex)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching CartographerMenuPresenter_ValidateDuplicateMap_Patch : " + ex);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching CartographerMenuPresenter_ValidateDuplicateMap_Patch : " + ex);
                 }
                 return false;
             }
@@ -118,7 +137,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception ex)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching CartographerMenuPresenter_CreateWorldMapSlots_Patch : " + ex);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching CartographerMenuPresenter_CreateWorldMapSlots_Patch : " + ex);
                 }
                 return false;
             }

@@ -54,7 +54,7 @@ namespace StrandedDeepModsUtils
                     if (pi_islandSize != null)
                     {
                         int swideIslandSize = (int)pi_islandSize.GetValue(null);
-                        //Debug.Log("Stranded Deep World Utilities : Stranded Wide island size retrieved : " + swideIslandSize);
+                        //CustomLogger.Log("Stranded Deep World Utilities : Stranded Wide island size retrieved : " + swideIslandSize);
                         return swideIslandSize;
                     }
                     else
@@ -100,7 +100,7 @@ namespace StrandedDeepModsUtils
                     if (pi_islandSizeRatio != null)
                     {
                         int swideIslandSizeRatio = (int)pi_islandSizeRatio.GetValue(null);
-                        //Debug.Log("Stranded Deep World Utilities : Stranded Wide island size ratio retrieved : " + swideIslandSizeRatio);
+                        //CustomLogger.Log("Stranded Deep World Utilities : Stranded Wide island size ratio retrieved : " + swideIslandSizeRatio);
                         return swideIslandSizeRatio;
                     }
                     else
@@ -138,7 +138,7 @@ namespace StrandedDeepModsUtils
                     if (pi_zoneSize != null)
                     {
                         float swideZoneSize = (float)pi_zoneSize.GetValue(null);
-                        //Debug.Log("Stranded Deep World Utilities : Stranded Wide zone size retrieved : " + swideZoneSize);
+                        //CustomLogger.Log("Stranded Deep World Utilities : Stranded Wide zone size retrieved : " + swideZoneSize);
                         return swideZoneSize;
                     }
                     else
@@ -176,7 +176,7 @@ namespace StrandedDeepModsUtils
                     if (pi_zoneSpacing != null)
                     {
                         float swideZoneSpacing = (float)pi_zoneSpacing.GetValue(null);
-                        //Debug.Log("Stranded Deep World Utilities : Stranded Wide zone spacing retrieved : " + swideZoneSpacing);
+                        //CustomLogger.Log("Stranded Deep World Utilities : Stranded Wide zone spacing retrieved : " + swideZoneSpacing);
                         return swideZoneSpacing;
                     }
                     else
@@ -215,7 +215,7 @@ namespace StrandedDeepModsUtils
                     if (pi_islandsCount != null)
                     {
                         int swideIslandCount = (int)pi_islandsCount.GetValue(null);
-                        //Debug.Log("Stranded Deep World Utilities : Stranded Wide island count retrieved : " + swideIslandCount);
+                        //CustomLogger.Log("Stranded Deep World Utilities : Stranded Wide island count retrieved : " + swideIslandCount);
                         return swideIslandCount;
                     }
                     else

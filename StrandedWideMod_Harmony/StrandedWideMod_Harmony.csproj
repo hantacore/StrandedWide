@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>StrandedWideMod_Harmony</RootNamespace>
     <AssemblyName>StrandedWideMod_Harmony</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
@@ -115,6 +115,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomLogger.cs" />
     <Compile Include="Main.0.Config.cs" />
     <Compile Include="Main.0_Additions.cs" />
     <Compile Include="Main.0_SplashScreen.cs" />

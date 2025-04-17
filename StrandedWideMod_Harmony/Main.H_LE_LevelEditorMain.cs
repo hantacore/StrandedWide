@@ -21,8 +21,8 @@ namespace StrandedWideMod_Harmony
 
                     if (tchild.gameObject != null)
                     {
-                        Debug.Log(modName + " enlarging map editor boundaries for larger islands");
-                        Debug.Log("LevelEditorMain:: BoundaryChild object : " + tchild.gameObject.name + " / scale " + tchild.localScale + " / position " + tchild.localPosition);
+                        CustomLogger.Log(modName + " enlarging map editor boundaries for larger islands");
+                        CustomLogger.Log("LevelEditorMain:: BoundaryChild object : " + tchild.gameObject.name + " / scale " + tchild.localScale + " / position " + tchild.localPosition);
                     }
 
                     tchild.localScale = new Vector3(200f, 150f, 100f);
@@ -53,7 +53,7 @@ namespace StrandedWideMod_Harmony
                     }
                 }
                 // Hide the buoy barrier
-                Debug.Log(modName + " Hide the editor buoy barrier");
+                CustomLogger.Log(modName + " Hide the editor buoy barrier");
                 Renderer[] renderers = Beam.Game.FindObjectsOfType<Renderer>();
                 foreach (Renderer r in renderers)
                 {
@@ -79,7 +79,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching postfix LE_LevelEditorMain.Initialize_InSecondUpdate : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching postfix LE_LevelEditorMain.Initialize_InSecondUpdate : " + e);
                 }
             }
         }
@@ -104,7 +104,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching LE_LevelEditorMain.LE_IInputHandler.MoveCamera : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching LE_LevelEditorMain.LE_IInputHandler.MoveCamera : " + e);
                 }
             }
         }
@@ -125,7 +125,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching LE_LevelEditorMain.EstimateDistanceToLevel : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching LE_LevelEditorMain.EstimateDistanceToLevel : " + e);
                 }
                 //return true;
             }

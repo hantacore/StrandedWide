@@ -23,11 +23,12 @@ namespace StrandedWideMod_Harmony
             {
                 try
                 {
-                    Main._zoneLoadDistance = IslandSize - 6;
-                    Debug.Log("Stranded Wide (Harmony edition) : LoadWorld _zoneLoadDistance = " + _zoneLoadDistance);
-                    Main._zoneUnloadDistance = _zoneLoadDistance - 10;
-                    Debug.Log("Stranded Wide (Harmony edition) : LoadWorld _zoneUnloadDistance = " + _zoneUnloadDistance);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : LoadWorld from StrandedWorld");
 
+                    Main._zoneLoadDistance = IslandSize - 6;
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : LoadWorld _zoneLoadDistance = " + _zoneLoadDistance);
+                    Main._zoneUnloadDistance = _zoneLoadDistance - 10;
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : LoadWorld _zoneUnloadDistance = " + _zoneUnloadDistance);
                     Beam.Terrain.LoadingResult loadingResult = World.LoadWorld();
                     if (loadingResult.Succeeded)
                     {
@@ -42,7 +43,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching StrandedWorld.LoadWorld : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching StrandedWorld.LoadWorld : " + e);
                 }
                 return true;
             }
@@ -68,7 +69,7 @@ namespace StrandedWideMod_Harmony
                         try
                         {
                             Map map = World.MapList[i];
-                            Debug.LogError("StrandedWorld:: Loading zone (" + i + ") " + DateTime.Now);
+                            CustomLogger.Log("StrandedWorld:: Loading zone (" + i + ") " + DateTime.Now);
                             //try
                             //{
                             //    Beam.UI.TMPTextScreenViewAdapter loadingscreen = Game.FindObjectOfType<Beam.UI.TMPTextScreenViewAdapter>();
@@ -149,7 +150,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching StrandedWorld.ZoneLoader_LoadedZone : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching StrandedWorld.ZoneLoader_LoadedZone : " + e);
                 }
             }
         }
@@ -170,7 +171,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching StrandedWorld.InZoneUnLoadingBounds : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching StrandedWorld.InZoneUnLoadingBounds : " + e);
                 }
                 return true;
             }
@@ -189,7 +190,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching StrandedWorld.InZoneLoadingBounds : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching StrandedWorld.InZoneLoadingBounds : " + e);
                 }
                 return true;
             }
@@ -213,7 +214,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching StrandedWorld.IsOutOfGameBounds : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching StrandedWorld.IsOutOfGameBounds : " + e);
                 }
                 return true;
             }
@@ -262,7 +263,7 @@ namespace StrandedWideMod_Harmony
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : error while patching StrandedWorld.AddWaveOverlay : " + e);
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching StrandedWorld.AddWaveOverlay : " + e);
                 }
                 return true;
             }

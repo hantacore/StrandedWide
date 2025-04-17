@@ -29,7 +29,7 @@ namespace StrandedWideMod_Harmony
 
         private static void ReadConfig()
         {
-            Debug.Log(modName + " : config file directory : " + FilePath.SAVE_FOLDER);
+            CustomLogger.Log(modName + " : config file directory : " + FilePath.SAVE_FOLDER);
             string dataDirectory = FilePath.SAVE_FOLDER;//System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData).Replace("Local", "LocalLow"), @"Beam Team Games\Stranded Deep\Data\");
             if (System.IO.Directory.Exists(dataDirectory))
             {
@@ -154,7 +154,7 @@ namespace StrandedWideMod_Harmony
         //        {
         //            //if (!__result)
         //            //{
-        //            //    Debug.Log("Stranded Wide (Harmony edition) : save slot changed, reloading options");
+        //            //    CustomLogger.Log("Stranded Wide (Harmony edition) : save slot changed, reloading options");
         //            //    IslandSizeBuffer = IslandSize;
         //            //    IslandsCountBuffer = IslandsCount;
         //            //    ZoneSpacingBuffer = ZoneSpacing;
@@ -162,7 +162,7 @@ namespace StrandedWideMod_Harmony
         //        }
         //        catch (Exception e)
         //        {
-        //            Debug.Log("Stranded Wide (Harmony edition) : error while patching SaveManager_ChangeCurrentSlot_PostFix_Patch PostFix : " + e);
+        //            CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching SaveManager_ChangeCurrentSlot_PostFix_Patch PostFix : " + e);
         //        }
         //    }
         //}

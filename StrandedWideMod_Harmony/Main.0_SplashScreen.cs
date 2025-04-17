@@ -60,7 +60,7 @@ namespace StrandedWideMod_Harmony
                 return;
             }
 
-            Debug.Log(modName + " init splash canvas");
+            CustomLogger.Log(modName + " init splash canvas");
 
             //Create main Canvas
             canvas = createCanvas(false);
