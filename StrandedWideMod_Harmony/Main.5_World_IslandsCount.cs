@@ -131,6 +131,8 @@ namespace StrandedWideMod_Harmony
                     CustomLogger.Log("Stranded Wide (Harmony edition) : CreateWorld _zoneLoadDistance = " + _zoneLoadDistance);
                     Main._zoneUnloadDistance = _zoneLoadDistance - 10;
                     CustomLogger.Log("Stranded Wide (Harmony edition) : CreateWorld _zoneUnloadDistance = " + _zoneUnloadDistance);
+                    Main._saveBoundsRadius = IslandSize - 101 * IslandSizeRatio;
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : CreateWorld _saveBoundsRadius = " + _saveBoundsRadius);
 
 #warning create world async ?
 

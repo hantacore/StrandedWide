@@ -29,6 +29,9 @@ namespace StrandedWideMod_Harmony
                     CustomLogger.Log("Stranded Wide (Harmony edition) : LoadWorld _zoneLoadDistance = " + _zoneLoadDistance);
                     Main._zoneUnloadDistance = _zoneLoadDistance - 10;
                     CustomLogger.Log("Stranded Wide (Harmony edition) : LoadWorld _zoneUnloadDistance = " + _zoneUnloadDistance);
+                    Main._saveBoundsRadius = IslandSize - 101 * IslandSizeRatio;
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : LoadWorld _saveBoundsRadius = " + _saveBoundsRadius);
+
                     Beam.Terrain.LoadingResult loadingResult = World.LoadWorld();
                     if (loadingResult.Succeeded)
                     {
