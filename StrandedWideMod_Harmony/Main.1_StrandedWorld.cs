@@ -25,10 +25,10 @@ namespace StrandedWideMod_Harmony
                 {
                     CustomLogger.Log("Stranded Wide (Harmony edition) : LoadWorld from StrandedWorld");
 
-                    Main._zoneLoadDistance = IslandSize - 6;
-                    CustomLogger.Log("Stranded Wide (Harmony edition) : LoadWorld _zoneLoadDistance = " + _zoneLoadDistance);
-                    Main._zoneUnloadDistance = _zoneLoadDistance - 10;
+                    Main._zoneUnloadDistance = IslandSize - 6 * IslandSizeRatio;
                     CustomLogger.Log("Stranded Wide (Harmony edition) : LoadWorld _zoneUnloadDistance = " + _zoneUnloadDistance);
+                    Main._zoneLoadDistance = IslandSize - 16 * IslandSizeRatio;
+                    CustomLogger.Log("Stranded Wide (Harmony edition) : LoadWorld _zoneLoadDistance = " + _zoneLoadDistance);
                     Main._saveBoundsRadius = IslandSize - 101 * IslandSizeRatio;
                     CustomLogger.Log("Stranded Wide (Harmony edition) : LoadWorld _saveBoundsRadius = " + _saveBoundsRadius);
 
