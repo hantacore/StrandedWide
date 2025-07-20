@@ -45,7 +45,7 @@ namespace StrandedWideMod_Harmony
             {
                 if (!Directory.Exists(Path.GetDirectoryName(filePath)))
                 {
-                    Debug.Log("Stranded Wide (Harmony edition) : creating directory : " + directory);
+                    Debug.Log("Stranded Wide (Harmony edition) : creating directory : " + Path.GetDirectoryName(filePath));
                     Directory.CreateDirectory(Path.GetDirectoryName(filePath));
                 }
 
