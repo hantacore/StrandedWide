@@ -128,10 +128,12 @@ namespace StrandedWideMod_Harmony
 
                 ReadConfig();
 
-                Main._zoneLoadDistance = IslandSize - 6;
-                Debug.Log("Stranded Wide (Harmony edition) : Load _zoneLoadDistance = " + _zoneLoadDistance);
-                Main._zoneUnloadDistance = _zoneLoadDistance - 10;
+                Main._zoneUnloadDistance = IslandSize - 6 * IslandSizeRatio;
                 Debug.Log("Stranded Wide (Harmony edition) : Load _zoneUnloadDistance = " + _zoneUnloadDistance);
+                Main._zoneLoadDistance = IslandSize - 16 * IslandSizeRatio;
+                Debug.Log("Stranded Wide (Harmony edition) : Load _zoneLoadDistance = " + _zoneLoadDistance);
+                Main._saveBoundsRadius = IslandSize - 101 * IslandSizeRatio;
+                Debug.Log("Stranded Wide (Harmony edition) : Load _saveBoundsRadius = " + _saveBoundsRadius);
 
                 Debug.Log(modName + " Successfully started. ");
 

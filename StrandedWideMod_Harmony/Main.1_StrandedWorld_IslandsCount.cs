@@ -274,15 +274,10 @@ namespace StrandedWideMod_Harmony
                         mi_PollImposters.Invoke(__instance, new object[] { zone });
                         //__instance.PollZone(zone);
                         
-                        // patch 1.0.35 -> buggy
-                        //if (!(bool)mi_PollUnload.Invoke(__instance, new object[] { zone }))
-                        //{
-                        //    mi_PollLoad.Invoke(__instance, new object[] { zone });
-                        //}
-
-                        // raft bug fix
-                        mi_PollUnload.Invoke(__instance, new object[] { zone });
-                        mi_PollLoad.Invoke(__instance, new object[] { zone });
+                        if (!(bool)mi_PollUnload.Invoke(__instance, new object[] { zone }))
+                        {
+                            mi_PollLoad.Invoke(__instance, new object[] { zone });
+                        }
                     }
 
                     // skip original method
