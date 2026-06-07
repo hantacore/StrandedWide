@@ -149,9 +149,7 @@ namespace StrandedWideMod_Harmony
         }
 
         #endregion
-
         public static bool CastawayMode { get; set; }
-
         // image size : must be power of 2 : 256, 512, 1024, 2048...
         //internal static int _islandSize;
         public static int IslandSize
@@ -296,7 +294,7 @@ namespace StrandedWideMod_Harmony
             get
             {
                 int ratio = IslandSize / (StrandedWorld.ZONE_HEIGHTMAP_SIZE - 1);
-                //CustomLogger.Log("Stranded Wide (Harmony edition) : computed IslandSize ratio = " + ratio);
+                //Debug.Log("Stranded Wide (Harmony edition) : computed IslandSize ratio = " + ratio);
                 return ratio;
             }
         }
@@ -325,12 +323,12 @@ namespace StrandedWideMod_Harmony
                 }
                 else if (IslandSize == 512)
                 {
-                    //CustomLogger.Log("Stranded Wide (Harmony edition) : computed WaveOverlayPosition 512 = " + (ZoneTerrainSize / 4));
+                    //Debug.Log("Stranded Wide (Harmony edition) : computed WaveOverlayPosition 512 = " + (ZoneTerrainSize / 4));
                     return ZoneTerrainSize / 4f; // 128
                 }
                 else if (IslandSize == 1024)
                 {
-                    //CustomLogger.Log("Stranded Wide (Harmony edition) : computed WaveOverlayPosition 1024 = " + (ZoneTerrainSize / 2.67f));
+                    //Debug.Log("Stranded Wide (Harmony edition) : computed WaveOverlayPosition 1024 = " + (ZoneTerrainSize / 2.67f));
                     return ZoneTerrainSize / 2.67f; // 374.5 (375 ?)
                 }
                 else if (IslandSize == 2048)
@@ -454,48 +452,51 @@ namespace StrandedWideMod_Harmony
 
         public static Texture2D Blur(Texture2D image, int blurSize)
         {
-            Texture2D blurred = new Texture2D(image.width, image.height);
+            int width = image.width;
+            int height = image.height;
 
-            // look at every pixel in the blur rectangle
-            for (int xx = 0; xx < image.width; xx++)
+            // Read all pixels in one GPU roundtrip instead of one per GetPixel call
+            Color[] srcPixels = image.GetPixels();
+            Color[] dstPixels = new Color[srcPixels.Length];
+
+            for (int xx = 0; xx < width; xx++)
             {
-                for (int yy = 0; yy < image.height; yy++)
+                for (int yy = 0; yy < height; yy++)
                 {
                     float avgR = 0, avgG = 0, avgB = 0, avgA = 0;
                     int blurPixelCount = 0;
 
-                    // average the color of the red, green and blue for each pixel in the
-                    // blur size while making sure you don't go outside the image bounds
-                    for (int x = xx; (x < xx + blurSize && x < image.width); x++)
-                    {
-                        for (int y = yy; (y < yy + blurSize && y < image.height); y++)
-                        {
-                            Color pixel = image.GetPixel(x, y);
+                    int xMax = Math.Min(xx + blurSize, width);
+                    int yMax = Math.Min(yy + blurSize, height);
 
+                    for (int x = xx; x < xMax; x++)
+                    {
+                        for (int y = yy; y < yMax; y++)
+                        {
+                            Color pixel = srcPixels[x + y * width];
                             avgR += pixel.r;
                             avgG += pixel.g;
                             avgB += pixel.b;
                             avgA += pixel.a;
-
                             blurPixelCount++;
                         }
                     }
 
-                    avgR = avgR / blurPixelCount;
-                    avgG = avgG / blurPixelCount;
-                    avgB = avgB / blurPixelCount;
-                    avgA = avgA / blurPixelCount;
+                    float invCount = 1f / blurPixelCount;
+                    Color avg = new Color(avgR * invCount, avgG * invCount, avgB * invCount, avgA * invCount);
 
-                    // now that we know the average for the blur size, set each pixel to that color
-                    for (int x = xx; x < xx + blurSize && x < image.width; x++)
+                    for (int x = xx; x < xMax; x++)
                     {
-                        for (int y = yy; y < yy + blurSize && y < image.height; y++)
+                        for (int y = yy; y < yMax; y++)
                         {
-                            blurred.SetPixel(x, y, new Color(avgR, avgG, avgB, avgA));
+                            dstPixels[x + y * width] = avg;
                         }
                     }
                 }
             }
+
+            Texture2D blurred = new Texture2D(width, height);
+            blurred.SetPixels(dstPixels);
             blurred.Apply();
             return blurred;
         }
@@ -605,7 +606,7 @@ namespace StrandedWideMod_Harmony
                             ZoneObjects zoneObjects = biomeCategory.ProceduralObjects[j];
                             ZoneGenerationType generationType = zoneObjects.generationType;
 
-                            //CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World BiomeGeneration : " + zoneObjects.name + " / spawnChance = " + zoneObjects.spawnChance + " / maxObjectCount = " + zoneObjects.maxObjectCount + " / detailAmountFactor = " + zoneObjects.detailAmountFactor);
+                            //Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World BiomeGeneration : " + zoneObjects.name + " / spawnChance = " + zoneObjects.spawnChance + " / maxObjectCount = " + zoneObjects.maxObjectCount + " / detailAmountFactor = " + zoneObjects.detailAmountFactor);
                             
                             if (generationType == ZoneGenerationType.Procedural)
                             {
@@ -618,14 +619,14 @@ namespace StrandedWideMod_Harmony
                                 if (zoneObjects.name == "GEN_BOAR")
                                     zob_GEN_BOAR = zoneObjects;
 
-                                //CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World BiomeGeneration : " + zoneObjects.name + " / spawnChance = " + zoneObjects.spawnChance + " / maxObjectCount = " + zoneObjects.maxObjectCount + " / detailAmountFactor = " + zoneObjects.detailAmountFactor);
+                                //Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World BiomeGeneration : " + zoneObjects.name + " / spawnChance = " + zoneObjects.spawnChance + " / maxObjectCount = " + zoneObjects.maxObjectCount + " / detailAmountFactor = " + zoneObjects.detailAmountFactor);
                                 if (rarityUpdate.ContainsKey(zoneObjects.name))
                                 {
                                     //zoneObjects.detailAmountFactor = rarityUpdate[zoneObjects.name].Key;
                                     zoneObjects.spawnChance = rarityUpdate[zoneObjects.name].Key;
                                     zoneObjects.maxObjectCount = rarityUpdate[zoneObjects.name].Value;
                                 }
-                                //CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World BiomeGeneration : " + zoneObjects.name + " / spawnChance = " + zoneObjects.spawnChance + " / maxObjectCount = " + zoneObjects.maxObjectCount + " / detailAmountFactor = " + zoneObjects.detailAmountFactor);
+                                //Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World BiomeGeneration : " + zoneObjects.name + " / spawnChance = " + zoneObjects.spawnChance + " / maxObjectCount = " + zoneObjects.maxObjectCount + " / detailAmountFactor = " + zoneObjects.detailAmountFactor);
                             }
                         }
                     }
@@ -662,17 +663,17 @@ namespace StrandedWideMod_Harmony
                         {
                             ZoneObjects zoneObjects = objectCategory.ProceduralObjects[j];
                             ZoneGenerationType generationType = zoneObjects.generationType;
-                            //CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World ObjectGeneration : " + zoneObjects.name + " / spawnChance = " + zoneObjects.spawnChance + " / maxObjectCount = " + zoneObjects.maxObjectCount + " / detailAmountFactor = " + zoneObjects.detailAmountFactor);
+                            //Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World ObjectGeneration : " + zoneObjects.name + " / spawnChance = " + zoneObjects.spawnChance + " / maxObjectCount = " + zoneObjects.maxObjectCount + " / detailAmountFactor = " + zoneObjects.detailAmountFactor);
                             if (generationType == ZoneGenerationType.Procedural)
                             {
-                                //CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World ObjectGeneration : " + zoneObjects.name + " / spawnChance = " + zoneObjects.spawnChance + " / maxObjectCount = " + zoneObjects.maxObjectCount + " / detailAmountFactor = " + zoneObjects.detailAmountFactor);
+                                //Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World ObjectGeneration : " + zoneObjects.name + " / spawnChance = " + zoneObjects.spawnChance + " / maxObjectCount = " + zoneObjects.maxObjectCount + " / detailAmountFactor = " + zoneObjects.detailAmountFactor);
                                 if (rarityUpdate.ContainsKey(zoneObjects.name))
                                 {
                                     //zoneObjects.detailAmountFactor = rarityUpdate[zoneObjects.name].Key;
                                     zoneObjects.spawnChance = rarityUpdate[zoneObjects.name].Key;
                                     zoneObjects.maxObjectCount = rarityUpdate[zoneObjects.name].Value;
                                 }
-                                //CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World ObjectGeneration : " + zoneObjects.name + " / spawnChance = " + zoneObjects.spawnChance + " / maxObjectCount = " + zoneObjects.maxObjectCount + " / detailAmountFactor = " + zoneObjects.detailAmountFactor);
+                                //Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World ObjectGeneration : " + zoneObjects.name + " / spawnChance = " + zoneObjects.spawnChance + " / maxObjectCount = " + zoneObjects.maxObjectCount + " / detailAmountFactor = " + zoneObjects.detailAmountFactor);
                             }
                         }
                     }

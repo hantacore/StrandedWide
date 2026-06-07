@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -60,19 +61,19 @@ namespace StrandedWideMod_Harmony
                             }
                             else if (tokens[0].Contains("slot0IslandSpacing"))
                             {
-                                slot0IslandSpacing = float.Parse(tokens[1]);
+                                slot0IslandSpacing = float.Parse(tokens[1], CultureInfo.InvariantCulture);
                             }
                             else if (tokens[0].Contains("slot1IslandSpacing"))
                             {
-                                slot1IslandSpacing = float.Parse(tokens[1]);
+                                slot1IslandSpacing = float.Parse(tokens[1], CultureInfo.InvariantCulture);
                             }
                             else if (tokens[0].Contains("slot2IslandSpacing"))
                             {
-                                slot2IslandSpacing = float.Parse(tokens[1]);
+                                slot2IslandSpacing = float.Parse(tokens[1], CultureInfo.InvariantCulture);
                             }
                             else if (tokens[0].Contains("slot3IslandSpacing"))
                             {
-                                slot3IslandSpacing = float.Parse(tokens[1]);
+                                slot3IslandSpacing = float.Parse(tokens[1], CultureInfo.InvariantCulture);
                             }
                             else if (tokens[0].Contains("slot0IslandCount"))
                             {
@@ -96,7 +97,7 @@ namespace StrandedWideMod_Harmony
                             }
                             else if (tokens[0].Contains("customIslandsRatio"))
                             {
-                                customIslandsRatio = float.Parse(tokens[1]);
+                                customIslandsRatio = float.Parse(tokens[1], CultureInfo.InvariantCulture);
                             }
                         }
                     }
@@ -130,16 +131,16 @@ namespace StrandedWideMod_Harmony
                 sb.AppendLine("slot1IslandSize=" + slot1IslandSize + ";");
                 sb.AppendLine("slot2IslandSize=" + slot2IslandSize + ";");
                 sb.AppendLine("slot3IslandSize=" + slot3IslandSize + ";");
-                sb.AppendLine("slot0IslandSpacing=" + slot0IslandSpacing + ";");
-                sb.AppendLine("slot1IslandSpacing=" + slot1IslandSpacing + ";");
-                sb.AppendLine("slot2IslandSpacing=" + slot2IslandSpacing + ";");
-                sb.AppendLine("slot3IslandSpacing=" + slot3IslandSpacing + ";");
+                sb.AppendLine("slot0IslandSpacing=" + slot0IslandSpacing.ToString(CultureInfo.InvariantCulture) + ";");
+                sb.AppendLine("slot1IslandSpacing=" + slot1IslandSpacing.ToString(CultureInfo.InvariantCulture) + ";");
+                sb.AppendLine("slot2IslandSpacing=" + slot2IslandSpacing.ToString(CultureInfo.InvariantCulture) + ";");
+                sb.AppendLine("slot3IslandSpacing=" + slot3IslandSpacing.ToString(CultureInfo.InvariantCulture) + ";");
                 sb.AppendLine("slot0IslandCount=" + slot0IslandCount + ";");
                 sb.AppendLine("slot1IslandCount=" + slot1IslandCount + ";");
                 sb.AppendLine("slot2IslandCount=" + slot2IslandCount + ";");
                 sb.AppendLine("slot3IslandCount=" + slot3IslandCount + ";");
                 sb.AppendLine("mixProceduralAndCustom=" + mixProceduralAndCustom + ";");
-                sb.AppendLine("customIslandsRatio=" + customIslandsRatio + ";");
+                sb.AppendLine("customIslandsRatio=" + customIslandsRatio.ToString(CultureInfo.InvariantCulture) + ";");
 
                 System.IO.File.WriteAllText(configFilePath, sb.ToString(), Encoding.UTF8);
             }
@@ -154,7 +155,7 @@ namespace StrandedWideMod_Harmony
         //        {
         //            //if (!__result)
         //            //{
-        //            //    CustomLogger.Log("Stranded Wide (Harmony edition) : save slot changed, reloading options");
+        //            //    Debug.Log("Stranded Wide (Harmony edition) : save slot changed, reloading options");
         //            //    IslandSizeBuffer = IslandSize;
         //            //    IslandsCountBuffer = IslandsCount;
         //            //    ZoneSpacingBuffer = ZoneSpacing;
@@ -162,7 +163,7 @@ namespace StrandedWideMod_Harmony
         //        }
         //        catch (Exception e)
         //        {
-        //            CustomLogger.Log("Stranded Wide (Harmony edition) : error while patching SaveManager_ChangeCurrentSlot_PostFix_Patch PostFix : " + e);
+        //            Debug.Log("Stranded Wide (Harmony edition) : error while patching SaveManager_ChangeCurrentSlot_PostFix_Patch PostFix : " + e);
         //        }
         //    }
         //}

@@ -20,6 +20,18 @@ namespace StrandedWideMod_Harmony
     {
         internal static FastRandom _scaleRandomizer = new FastRandom();
 
+        // Palms, ficus, shrubs, bush, pines — lookup O(1) au lieu de List.Contains O(n) recréée à chaque objet
+        private static readonly HashSet<uint> _plantPrefabIds = new HashSet<uint>
+        {
+            157, 158, 159, 160,   // palms
+            47, 48, 49,           // ficus
+            66, 67,               // ficus
+            50, 51, 52,           // shrubs
+            205,                  // bush
+            202, 203, 204,        // pines
+            206, 207              // pines
+        };
+
         [HarmonyPatch(typeof(ZoneLoader), "GenerateObjects")]
         class ZoneLoader_GenerateObjects_Patch
         {
@@ -91,9 +103,10 @@ namespace StrandedWideMod_Harmony
                     }
                     int detailAmountFactor = zoneObjects.detailAmountFactor;
                     int num2 = 0;
-                    for (int j = 0; j < IslandSize - detailAmountFactor; j += detailAmountFactor)
+                    bool abortGeneration = false;
+                    for (int j = 0; j < IslandSize - detailAmountFactor && !abortGeneration; j += detailAmountFactor)
                     {
-                        for (int k = 0; k < IslandSize - detailAmountFactor; k += detailAmountFactor)
+                        for (int k = 0; k < IslandSize - detailAmountFactor && !abortGeneration; k += detailAmountFactor)
                         {
                             //if (zone.Biome == Zone.BiomeType.ISLAND_SMALL
                             //    && (zoneObjects.name == "GEN_SNAKE"
@@ -110,12 +123,16 @@ namespace StrandedWideMod_Harmony
                             if (zone.Biome == Zone.BiomeType.ISLAND && zoneObjects.name == "GEN_BUSH")
                             {
                                 if (!hasBushes)// || num2 >= maxBushes)
-                                    return false;
+                                {
+                                    abortGeneration = true;
+                                    continue;
+                                }
                             }
 
                             if (num2 >= zoneObjects.maxObjectCount)
                             {
-                                return false;
+                                abortGeneration = true;
+                                continue;
                             }
                             GenerationPoints generationPoints = zone.GenerationPoints[j, k];
                             if ((float)__instance.Random.NextDouble() < (float)zoneObjects.spawnChance / 100f && ((zoneObjects.occupyPoint && !generationPoints.Occupied) || !zoneObjects.occupyPoint) && generationPoints.Position.y >= zoneObjects.minHeight && generationPoints.Position.y < zoneObjects.maxHeight && generationPoints.Soilmap >= zoneObjects.minStrength && generationPoints.Soilmap < zoneObjects.maxStrength && generationPoints.steepNess < zoneObjects.maxSteepness && generationPoints.steepNess > zoneObjects.minSteepness)
@@ -300,7 +317,7 @@ namespace StrandedWideMod_Harmony
             {
                 try
                 {
-                    //UnityEngine.CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World CreateGeneratedPrefab " + generationObject.GetType());
+                    //CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World CreateGeneratedPrefab " + generationObject.GetType());
 
                     if (generationObject is SaveablePrefab)
                     {
@@ -330,14 +347,14 @@ namespace StrandedWideMod_Harmony
                     // working
                     //if (generationObject.gameObject.name == "SHIPWRECK_8A")
                     //{
-                    //    UnityEngine.CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World CreateGeneratedPrefab no yachts in here !");
+                    //    CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World CreateGeneratedPrefab no yachts in here !");
                     //    return;
                     //}
                     //if (generationObject.gameObject.name == "SHIPWRECK_3A")
                     //{
                     //    if (_scaleRandomizer.Next(0, 10) > 5)
                     //    {
-                    //        UnityEngine.CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World CreateGeneratedPrefab not too many buoy boats !");
+                    //        CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World CreateGeneratedPrefab not too many buoy boats !");
                     //        return;
                     //    }
                     //}
@@ -373,8 +390,8 @@ namespace StrandedWideMod_Harmony
             {
                 try
                 {
-                    //UnityEngine.CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World generating prefab for island : " + zone.name);
-                    //UnityEngine.CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World save container name : " + zone.SaveContainer.name);
+                    //UnityEngine.Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World generating prefab for island : " + zone.name);
+                    //UnityEngine.Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World save container name : " + zone.SaveContainer.name);
 
                     SaveablePrefab component = objectData.Prefab.GetComponent<SaveablePrefab>();
                     GameObject gameObject = null;
@@ -386,7 +403,7 @@ namespace StrandedWideMod_Harmony
                         if (prefabId > 399)
                             return false;
 
-                        //UnityEngine.CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World CreateGeneratedPrefab Id : " + prefabId);
+                        //UnityEngine.Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World CreateGeneratedPrefab Id : " + prefabId);
 
                         MiniGuid referenceId = MiniGuid.NewFrom(objectData.Position, prefabId, 48879);
                         if (Game.Mode.IsClient() && component.IsMultiplayerEntity)
@@ -403,7 +420,7 @@ namespace StrandedWideMod_Harmony
                     }
                     else
                     {
-                        //UnityEngine.CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World CreateGeneratedPrefab Name : " + objectData.Prefab.name);
+                        //UnityEngine.Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World CreateGeneratedPrefab Name : " + objectData.Prefab.name);
                         if (objectData.Prefab.name != "GENERATOR_ISLAND_SHARKS")
                         {
                             gameObject = UnityEngine.Object.Instantiate<GameObject>(objectData.Prefab, objectData.Position, objectData.Rotation);
@@ -463,7 +480,7 @@ namespace StrandedWideMod_Harmony
                         if (zone.IsStartingIsland)
                             sharks_count = 3;
 
-                        //UnityEngine.CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World number of sharks = " + sharks_count);
+                        //UnityEngine.Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World number of sharks = " + sharks_count);
 
                         for (int sharkindex = 0; sharkindex < sharks_count; sharkindex++)
                         {
@@ -484,15 +501,15 @@ namespace StrandedWideMod_Harmony
                                 // 335 GOBLIN
                                 sharkType = 335;
 
-                            //UnityEngine.CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World shark type = " + sharkType);
+                            //UnityEngine.Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World shark type = " + sharkType);
 
                             //SaveablePrefab sp = null;
 
                             string text;
                             bool flag = Prefabs.TryGetMultiplayerPrefabName(sharkType, out text);
-                            //UnityEngine.CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World flag = " + flag);
+                            //UnityEngine.Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World flag = " + flag);
                             MiniGuid referenceId = MiniGuid.NewFrom(position, sharkType, 48879);
-                            //UnityEngine.CustomLogger.Log("StrandedWorld::CreateWorld:: Stranded Wide World CreateGeneratedPrefab referenceId = " + referenceId);
+                            //UnityEngine.Debug.Log("StrandedWorld::CreateWorld:: Stranded Wide World CreateGeneratedPrefab referenceId = " + referenceId);
                             SaveablePrefab instance = MultiplayerMng.Instantiate<SaveablePrefab>(sharkType, referenceId, null);
 
                             ((PiscusManager)instance).SpawnDistance = 320;
@@ -509,34 +526,7 @@ namespace StrandedWideMod_Harmony
                     {
                         if (component != null && gameObject != null)
                         {
-                            List<uint> plantPrefabs = new List<uint>();
-                            //palms
-                            plantPrefabs.Add(157);
-                            plantPrefabs.Add(158);
-                            plantPrefabs.Add(159);
-                            plantPrefabs.Add(160);
-                            // ficus
-                            plantPrefabs.Add(47);
-                            plantPrefabs.Add(48);
-                            plantPrefabs.Add(49);
-                            //ficus
-                            plantPrefabs.Add(66);
-                            plantPrefabs.Add(67);
-                            // shrubs
-                            plantPrefabs.Add(50);
-                            plantPrefabs.Add(51);
-                            plantPrefabs.Add(52);
-                            // bush
-                            plantPrefabs.Add(205);
-                            // pines
-                            plantPrefabs.Add(202);
-                            plantPrefabs.Add(203);
-                            plantPrefabs.Add(204);
-                            // pines
-                            plantPrefabs.Add(206);
-                            plantPrefabs.Add(207);
-
-                            if (plantPrefabs.Contains(component.PrefabId))
+                            if (_plantPrefabIds.Contains(component.PrefabId))
                             {
                                 int scale = _scaleRandomizer.Next(90, 110);
                                 float fscale = (float)scale / (float)100;
